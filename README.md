@@ -26,6 +26,8 @@ python3 scripts/server/main.py --port 8080
 
 ## Project Plan
 
+Core template work is in place. The checklist below marks shipped pieces as complete and leaves the remaining hardening work unchecked.
+
 ### 1. Repo scaffold
 
 - [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/assets/`, `.claude/skills/`, `scripts/server/static/`, `scripts/server/templates/`
@@ -109,3 +111,12 @@ python3 scripts/server/main.py --port 8080
 - [x] Render a full-viewport force-directed graph from `/api/graph`
 - [x] Support click-to-navigate, zoom, pan, drag, labels, tooltips, and resize-aware graph layout
 - [x] Color nodes by type: page, index, report, or other
+
+---
+
+### 6. Remaining work
+
+- [ ] Serve and render `[[assets/filename]]` links from `wiki/sources/assets/` so asset references used by the skills work in the browser UI
+- [ ] Add an automated smoke test for `scripts/init.sh` that scaffolds a fresh project and verifies the expected files are created
+- [ ] Add automated tests for `scripts/server/main.py` covering markdown rendering, wiki-link resolution, and `/api/graph`
+- [ ] Add a simple validation workflow or script to keep the template files and README plan in sync
