@@ -28,57 +28,84 @@ python3 scripts/server/main.py --port 8080
 
 ### 1. Repo scaffold
 
-- [x] Create folder structure: `wiki/pages/`, `wiki/sources/assets/`, `wiki/reports/`, `.claude/skills/`, `scripts/server/static/`, `scripts/server/templates/`
-- [x] `wiki/_index.md` stub
-- [x] `wiki/pages/_index.md` stub
-- [x] `wiki/reports/_index.md` stub
-- [x] `wiki/sources/bibliography.md`
+- [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/assets/`, `.claude/skills/`, `scripts/server/static/`, `scripts/server/templates/`
+- [x] Ship wiki entrypoints and recursive indexes: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
+- [x] Provide bibliography storage at `wiki/sources/bibliography.md`
+- [x] Include template docs/config: `README.md`, `CLAUDE.md`, `.claude/settings.json`
+- [x] Document the script tree with `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/static/_index.md`, `scripts/server/templates/_index.md`
 
 ---
 
 ### 2. Skills (`.claude/skills/`)
 
 #### `research`
-- [x] Accept a topic as input
-- [x] Search `wiki/pages/` for an existing page before creating a new one
-- [x] Create, update, or rewrite a page under `wiki/pages/` with frontmatter (`title`, `tags`, `created`, `updated`)
-- [x] Append new external sources to `wiki/sources/bibliography.md` (deduplicate by URL)
-- [x] Refresh the parent directory index so it includes the new page
+- [x] Accept a topic plus optional URL or asset input
+- [x] Reuse an existing page when there is already a close match in `wiki/pages/`
+- [x] Create or rewrite a page with required frontmatter: `title`, `description`, `tags`, `created`, `updated`
+- [x] Keep related pages, parent indexes, backlinks, and tags in sync after page updates
+
+#### `sources`
+- [x] Add and deduplicate bibliography entries by URL
+- [x] Support finding, auditing, and removing bibliography entries by slug or URL/title
+- [x] Enforce `wiki/sources/bibliography.md` as the only place raw URLs live
 
 #### `index`
-- [x] Scan a directory and document its structure in `_index.md`
-- [x] Regenerate wiki markdown as needed
+- [x] Regenerate any directory `_index.md` from the directory's actual markdown contents
+- [x] Include page and subdirectory descriptions in `## Contents`
+- [x] Enforce the invariant that every wiki directory has an `_index.md`
+
+#### `hierarchy`
+- [x] Choose the best target directory for a new page under `wiki/pages/`
+- [x] Create a new subdirectory only when the topic warrants a cluster
+- [x] Refresh parent indexes after structure changes
+
+#### `page`
+- [x] Create a blank page at the correct path with required frontmatter and an empty backlinks section
+- [x] Refuse to overwrite an existing file
+
+#### `backlinks`
+- [x] Rebuild `## Backlinks` for a single page or the entire wiki
+- [x] Include backlinks from both `wiki/pages/` and `wiki/reports/`
+- [x] Keep backlinks sorted and always last in the file
+
+#### `tags`
+- [x] Validate per-page tags against the current taxonomy
+- [x] Audit tag usage across `wiki/pages/`
+- [x] Support tag rename and merge operations across the wiki
 
 ---
 
 ### 3. Init script (`scripts/init.sh`)
 
-- [x] Require project name as first argument; error if missing
-- [x] Create target directory; error if it already exists
-- [x] Fetch template files from raw GitHub (`curl -fsSL`)
-  - `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research`, `.claude/skills/sources`, `.claude/skills/index`, `.claude/skills/backlinks`, `.claude/skills/hierarchy`, `.claude/skills/page`, `.claude/skills/tags`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
+- [x] Require a project name as the first argument; error if missing
+- [x] Create the target directory; error if it already exists
+- [x] Fetch template files from raw GitHub with `curl -fsSL`
+  - `README.md`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research.md`, `.claude/skills/sources.md`, `.claude/skills/index.md`, `.claude/skills/backlinks.md`, `.claude/skills/hierarchy.md`, `.claude/skills/page.md`, `.claude/skills/tags.md`, `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/static/_index.md`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `scripts/server/templates/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
 - [x] Scaffold stub files: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/bibliography.md`
-- [x] Run `git init` and make initial commit
-- [x] Print next steps: open in Claude Code, run `python3 scripts/server/main.py`
-- [x] Works on macOS and Linux — only requires `bash`, `curl`, `git`
+- [x] Run `git init` and make an initial commit
+- [x] Print next steps: open in Claude Code and run `python3 scripts/server/main.py`
+- [x] Work on macOS and Linux with only `bash`, `curl`, and `git`
 
 ---
 
 ### 4. Web server (`scripts/server/main.py`)
 
-- [x] `http.server.BaseHTTPRequestHandler` — stdlib only, no dependencies
-- [x] `GET /` — render `wiki/_index.md`
-- [x] `GET /pages/<path>` — render a page or `_index.md` from `wiki/pages/`; 404 if not found
-- [x] `GET /graph` — full-page D3 force-directed graph
-- [x] `GET /api/graph` — JSON `{ nodes, links }` built by scanning `[[links]]` in markdown files under `wiki/`
-- [x] `GET /static/<file>` — serve CSS/JS
-- [x] Markdown rendering: frontmatter, `[[wiki-links]]` → `<a>`, headings, bold, italic, code, lists
-- [x] Start on port 8000; print `http://localhost:8000`
+- [x] Use the Python standard library only (`http.server`, no framework or install step)
+- [x] Render any markdown page under `wiki/`, including `/`, `/pages/...`, `/reports/...`, and `/sources/...`
+- [x] Serve `/graph` and `/api/graph` for the wiki graph view
+- [x] Serve static assets from `/static/...`
+- [x] Convert frontmatter-aware markdown to HTML with `[[wiki-links]]`, markdown links, headings, emphasis, code, blockquotes, and ordered/unordered lists
+- [x] Strip the `## Backlinks` section from rendered HTML while preserving it in source markdown
+- [x] Surface page metadata such as path, dates, and tags in the UI
+- [x] Start on port 8000 by default and print `http://localhost:<port>`
 
 ---
 
-### 5. Graph view (`scripts/server/static/graph.js`)
+### 5. Browser UI (`scripts/server/templates/`, `scripts/server/static/`)
 
-- [x] Fetch `/api/graph` and render a D3 force-directed graph filling the viewport
-- [x] Click a node to navigate to it; zoom and pan
-- [x] Node color by type: pages (blue), indexes (purple), reports (green)
+- [x] Provide a shared base template with wiki navigation (`Home`, `Pages`, `Reports`, `Graph`)
+- [x] Provide a readable dark-mode stylesheet for markdown pages and metadata
+- [x] Lazy-load D3 from a CDN for the graph page
+- [x] Render a full-viewport force-directed graph from `/api/graph`
+- [x] Support click-to-navigate, zoom, pan, drag, labels, tooltips, and resize-aware graph layout
+- [x] Color nodes by type: page, index, report, or other
