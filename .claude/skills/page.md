@@ -13,7 +13,7 @@ Creates a blank page file at the correct path with proper frontmatter. This is t
 - Title (required) — natural-language page title
 - Description (required) — one sentence describing what this page is about
 - Tags (required) — 1–5 lowercase kebab-case tags
-- Path (optional) — explicit path (e.g. `pages/topic/my-page.md`); if omitted, `hierarchy` determines placement
+- Path (optional) — explicit path (e.g. `wiki/pages/topic/my-page.md`); if omitted, `hierarchy` determines placement
 
 ## Steps
 

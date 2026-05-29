@@ -1,6 +1,6 @@
 # tags
 
-Maintains tag consistency across all pages in `pages/`.
+Maintains tag consistency across all pages in `wiki/pages/`.
 
 ## When to invoke
 
@@ -26,7 +26,7 @@ Maintains tag consistency across all pages in `pages/`.
 ## Steps — validate
 
 1. Read the page's `tags` frontmatter field.
-2. Collect all tags currently in use: grep for `^tags:` in all `.md` files under `pages/`.
+2. Collect all tags currently in use: grep for `^tags:` in all `.md` files under `wiki/pages/`.
 3. For each tag on the page:
    - Matches an existing tag exactly → OK.
    - Close to an existing tag (typo, pluralization, spacing) → suggest the canonical form.
@@ -35,7 +35,7 @@ Maintains tag consistency across all pages in `pages/`.
 
 ## Steps — audit
 
-1. Grep all `.md` files under `pages/` for `^tags:` frontmatter lines.
+1. Grep all `.md` files under `wiki/pages/` for `^tags:` frontmatter lines.
 2. Parse each tag list and build a frequency map.
 3. Output a sorted table: tag → count, grouped alphabetically.
 4. Flag tags used only once (candidates for consolidation or removal).

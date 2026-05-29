@@ -1,6 +1,6 @@
 # backlinks
 
-Maintains the `## Backlinks` section at the bottom of every page under `pages/`.
+Maintains the `## Backlinks` section at the bottom of every page under `wiki/pages/`.
 
 ## When to invoke
 
@@ -15,13 +15,13 @@ Every page that contains `[[other-page]]` creates a backlink in `other-page.md`.
 ## Inputs
 
 - `update <page-path>` — rebuild backlinks for one specific page
-- `update-all` — rebuild backlinks for every page in `pages/`
+- `update-all` — rebuild backlinks for every page in `wiki/pages/`
 - `scan <page-path>` — report what this page links to and what links to it, without writing anything
 
 ## Steps — update single page
 
 1. Determine the slug of the target page: filename without `.md`.
-2. Search all `.md` files under `pages/` and `reports/` for `[[<slug>]]` occurrences.
+2. Search all `.md` files under `wiki/pages/` and `wiki/reports/` for `[[<slug>]]` occurrences.
 3. Collect the set of matching files as backlink sources (deduplicate, exclude the page itself).
 4. Open the target page:
    - If a `## Backlinks` section exists: replace everything from that heading to the end of file.
@@ -47,9 +47,9 @@ If no backlinks exist:
 
 ## Steps — update-all
 
-1. Build a full link map: for every `.md` file under `pages/` and `reports/`, extract all `[[slug]]` references.
+1. Build a full link map: for every `.md` file under `wiki/pages/` and `wiki/reports/`, extract all `[[slug]]` references.
 2. Invert the map: for each slug, collect all files that reference it.
-3. For every `.md` file in `pages/`, apply the single-page update logic using the inverted map.
+3. For every `.md` file in `wiki/pages/`, apply the single-page update logic using the inverted map.
 4. Report a summary: N pages updated, N already up-to-date, N with no backlinks.
 
 ## Steps — scan
@@ -63,6 +63,6 @@ If no backlinks exist:
 - `## Backlinks` must always be the last section in the file — nothing may follow it.
 - All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
 - This section will be overwritten on the next run.
-- Backlinks from `reports/` count and must be included.
+- Backlinks from `wiki/reports/` count and must be included.
 - `_index.md` files may have backlinks; treat them like any other page.
 - Sort backlink entries alphabetically by slug.

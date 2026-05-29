@@ -5,6 +5,8 @@
       "Write(wiki/pages/**)",
       "Write(wiki/reports/**)",
       "Write(wiki/sources/bibliography.md)",
+      "Write(wiki/sources/_index.md)",
+      "Write(wiki/sources/assets/_index.md)",
       "Write(wiki/_index.md)",
       "Write(wiki/pages/_index.md)",
       "Write(wiki/reports/_index.md)",

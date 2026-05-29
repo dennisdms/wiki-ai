@@ -1,6 +1,6 @@
 # hierarchy
 
-Decides where a page belongs in the `pages/` folder hierarchy and, if needed, creates a new subdirectory.
+Decides where a page belongs in the `wiki/pages/` folder hierarchy and, if needed, creates a new subdirectory.
 
 ## When to invoke
 
@@ -15,7 +15,7 @@ Decides where a page belongs in the `pages/` folder hierarchy and, if needed, cr
 
 ## Steps
 
-1. **Survey the structure** — list all directories under `pages/` and read each directory's `_index.md` title.
+1. **Survey the structure** — list all directories under `wiki/pages/` and read each directory's `_index.md` title.
 2. **Match the topic** — find the best-fit existing directory:
    - Exact or close semantic match → place the page there.
    - The topic is clearly a subtopic of an existing directory → place it inside that directory.
@@ -31,7 +31,7 @@ Decides where a page belongs in the `pages/` folder hierarchy and, if needed, cr
 ## Rules
 
 - Never create a directory for a single page unless that page is a clear entry point for a future cluster.
-- Max nesting depth is 3 levels: `pages/<topic>/<subtopic>/page.md`. Do not go deeper.
+- Max nesting depth is 3 levels: `wiki/pages/<topic>/<subtopic>/page.md`. Do not go deeper.
 - A directory with only one child page is a smell — collapse it into the parent unless growth is expected soon.
 - Directory names must be lowercase kebab-case (no spaces, no special characters).
 - Page filenames must also be lowercase kebab-case with a `.md` extension.

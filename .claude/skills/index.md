@@ -11,7 +11,7 @@ Documents a directory's structure and contents by creating or regenerating its `
 
 ## Inputs
 
-- Directory path to index (e.g. `pages/game-mechanics/`)
+- Directory path to index (e.g. `wiki/pages/game-mechanics/`)
 
 ## Directory index template
 
@@ -20,7 +20,7 @@ Every directory index must follow this exact structure:
 ```markdown
 ---
 title: Topic Title
-path: pages/topic/
+path: wiki/pages/topic/
 ---
 
 # Topic Title

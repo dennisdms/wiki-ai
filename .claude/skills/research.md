@@ -6,13 +6,13 @@ Research a topic, create, update, or rewrite a page, and keep all connected file
 
 The user invokes this skill with a topic to research. They may also provide a source:
 - A URL → add to sources first, then reference the slug in the page
-- An asset path → a file already in `sources/assets/` (PDF, image, etc.) to draw from
+- An asset path → a file already in `wiki/sources/assets/` (PDF, image, etc.) to draw from
 
 ## Inputs
 
 - Topic or question (required)
 - Optional URL: a source link the user wants stored and cited
-- Optional asset path: a path to a file inside `sources/assets/`
+- Optional asset path: a path to a file inside `wiki/sources/assets/`
 
 ## Steps
 
@@ -24,7 +24,7 @@ The user invokes this skill with a topic to research. They may also provide a so
 - Use `[[bibliography#game-feel]]` to cite it in the page body.
 
 **If the user provides an asset path:**
-- Confirm the file exists at `sources/assets/<filename>`.
+- Confirm the file exists at `wiki/sources/assets/<filename>`.
 - If not found, stop and tell the user.
 - Use `[[assets/filename]]` to reference it in the page body.
 
@@ -33,7 +33,7 @@ The user invokes this skill with a topic to research. They may also provide a so
 
 ### 2. Check for an existing page
 
-- Grep `pages/` for `.md` files whose `title` frontmatter or filename closely matches the topic.
+- Grep `wiki/pages/` for `.md` files whose `title` frontmatter or filename closely matches the topic.
 - If a match is found: update or rewrite it rather than creating a new file. Jump to step 4.
 
 ### 3. Determine placement
@@ -57,14 +57,14 @@ updated: YYYY-MM-DD
 
 Body guidelines:
 - Factual, dense prose. Write about the topic — don't meta-comment on the page itself.
-- Use `[[other-page-slug]]` to link to related pages in `pages/`.
+- Use `[[other-page-slug]]` to link to related pages in `wiki/pages/`.
 - Cite sources as `[[bibliography#slug]]` (never inline raw URLs).
 - Reference assets as `[[assets/filename]]`.
 - End the file with an empty `## Backlinks` section (the `backlinks` skill will populate it).
 
 ### 5. Link related pages
 
-- Search `pages/` for pages that should reference the new page but don't yet.
+- Search `wiki/pages/` for pages that should reference the new page but don't yet.
 - Insert `[[new-page-slug]]` into their body where it is naturally relevant.
 - Update the `updated` date in their frontmatter.
 
