@@ -56,7 +56,7 @@ python3 scripts/server/main.py --port 8080
 - [x] Require project name as first argument; error if missing
 - [x] Create target directory; error if it already exists
 - [x] Fetch template files from raw GitHub (`curl -fsSL`)
-  - `CLAUDE.md`, `.claude/skills/research`, `.claude/skills/sources`, `.claude/skills/index`, `.claude/skills/backlinks`, `.claude/skills/hierarchy`, `.claude/skills/page`, `.claude/skills/tags`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
+  - `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research`, `.claude/skills/sources`, `.claude/skills/index`, `.claude/skills/backlinks`, `.claude/skills/hierarchy`, `.claude/skills/page`, `.claude/skills/tags`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
 - [x] Scaffold stub files: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/bibliography.md`
 - [x] Run `git init` and make initial commit
 - [x] Print next steps: open in Claude Code, run `python3 scripts/server/main.py`

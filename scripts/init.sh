@@ -30,6 +30,7 @@ fetch() {
 
 fetch "CLAUDE.md" "CLAUDE.md"
 fetch "README.md" "README.md"
+fetch ".claude/settings.json" ".claude/settings.json"
 fetch ".claude/skills/research.md" ".claude/skills/research.md"
 fetch ".claude/skills/sources.md" ".claude/skills/sources.md"
 fetch ".claude/skills/index.md" ".claude/skills/index.md"
