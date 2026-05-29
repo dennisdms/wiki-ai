@@ -1,19 +1,19 @@
-# note
+# page
 
-Creates a blank note file at the correct path with proper frontmatter. This is the file-creation primitive used directly by the user for quick note capture, and called by `research` for the actual write step.
+Creates a blank page file at the correct path with proper frontmatter. This is the file-creation primitive used directly by the user for quick page capture, and called by `research` for the actual write step.
 
 ## When to invoke
 
-- When you want to stub out a note before filling in content
+- When you want to stub out a page before filling in content
 - Called by `research` after hierarchy resolves the target path
-- When creating multiple related notes in one pass
+- When creating multiple related pages in one pass
 
 ## Inputs
 
-- Title (required) — natural-language note title
-- Description (required) — one sentence describing what this note is about
+- Title (required) — natural-language page title
+- Description (required) — one sentence describing what this page is about
 - Tags (required) — 1–5 lowercase kebab-case tags
-- Path (optional) — explicit path (e.g. `notes/topic/my-note.md`); if omitted, `hierarchy` determines placement
+- Path (optional) — explicit path (e.g. `pages/topic/my-page.md`); if omitted, `hierarchy` determines placement
 
 ## Steps
 
@@ -30,14 +30,14 @@ Creates a blank note file at the correct path with proper frontmatter. This is t
 ### 3. Check for conflicts
 
 - If a file already exists at the target path: stop and report it. Do not overwrite.
-- To update an existing note, use `research` instead.
+- To update an existing page, use `research` instead.
 
 ### 4. Write the file
 
 ```markdown
 ---
-title: Note Title
-description: One sentence describing what this note is about.
+title: Page Title
+description: One sentence describing what this page is about.
 tags: [tag-one, tag-two]
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -59,8 +59,8 @@ updated: YYYY-MM-DD
 ## Rules
 
 - Never overwrite an existing file — this skill creates only; use `research` to update.
-- `description` is required — do not create a note without one.
-- Tags must follow wiki conventions: lowercase kebab-case, 1–5 per note.
+- `description` is required — do not create a page without one.
+- Tags must follow wiki conventions: lowercase kebab-case, 1–5 per page.
 - Filename must be lowercase kebab-case derived from the title.
 - `## Backlinks` must be the last section — nothing follows it.
-- This skill writes only the note file itself and triggers `index` on the parent directory.
+- This skill writes only the page file itself and triggers `index` on the parent directory.

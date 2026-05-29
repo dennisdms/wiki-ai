@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown notes. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python scripts/main.py` — no install step, no dependencies.
+wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown pages. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python scripts/server/main.py` — no install step, no dependencies.
 
 Users start a new wiki with a single command — no forking:
 ```sh
@@ -24,13 +24,15 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 ```
 _index.md          # Project home
 sources/
-  bibliography.md  # All external URLs — notes link here, never inline raw URLs
+  bibliography.md  # All external URLs — pages link here, never inline raw URLs
   assets/          # Source materials (PDFs, images, etc.)
-notes/             # Research notes, recursively organized with _index.md per folder
+pages/             # Research pages, recursively organized with _index.md per folder
 reports/           # Generated reports
 .claude/
   skills/          # research, index
-scripts/           # stdlib Python server, static/, templates/
+scripts/
+  init.sh          # Project bootstrap script
+  server/          # stdlib Python server, static/, templates/
 ```
 
 ## Branching strategy
@@ -39,19 +41,19 @@ This repo serves two distinct purposes depending on the active branch. Read the 
 
 ### `main` — template development
 
-On `main` you are **building wiki-ai itself**: the skills, the init script, the web server, and the docs. Work here is software development. The `.md` files (CLAUDE.md, README.md, stub indexes) are part of the template, not a live wiki. Do not add research notes or bibliography entries on this branch.
+On `main` you are **building wiki-ai itself**: the skills, the init script, the web server, and the docs. Work here is software development. The `.md` files (CLAUDE.md, README.md, stub indexes) are part of the template, not a live wiki. Do not add research pages or bibliography entries on this branch.
 
 ### `wiki_*` — live wiki instances
 
-Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-design`) is a **full wiki in use**, as if a real user had run the init script and started researching. These branches exist in this repo for development convenience — they let you dog-food the tool — but the AI's role on them is identical to what a real user's AI would do: research, write notes, maintain indexes, and follow all wiki skills.
+Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-design`) is a **full wiki in use**, as if a real user had run the init script and started researching. These branches exist in this repo for development convenience — they let you dog-food the tool — but the AI's role on them is identical to what a real user's AI would do: research, write pages, maintain indexes, and follow all wiki skills.
 
 **On a `wiki_*` branch:**
 - All wiki skills apply in full (`research`, `index`).
-- The wiki content (notes, reports, bibliography) on these branches is real research, not placeholder scaffolding.
+- The wiki content (pages, reports, bibliography) on these branches is real research, not placeholder scaffolding.
 
 ## Key invariants
 
-- `[[wiki-links]]` connect notes to each other and to `sources/bibliography.md` entries.
+- `[[wiki-links]]` connect pages to each other and to `sources/bibliography.md` entries.
 - `_index.md` files are recursive: every directory has one to document that folder's structure, maintained by the `index` skill.
 - `sources/bibliography.md` is the only place raw URLs live.
 
@@ -59,5 +61,6 @@ Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-d
 
 | Skill | Purpose |
 |---|---|
-| `research` | Research a topic, save a note, update bibliography, and refresh the relevant folder indexes |
+| `research` | Research a topic, save a page, update sources, and refresh the relevant folder indexes |
+| `sources` | Maintain `sources/bibliography.md` for external URLs and source metadata |
 | `index` | Document a directory's structure in `_index.md` |

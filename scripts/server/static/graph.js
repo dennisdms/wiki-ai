@@ -16,7 +16,7 @@ async function ensureD3() {
 
 function colorForType(type) {
   switch (type) {
-    case "note":
+    case "page":
       return "#f16431";
     case "index":
       return "#cbb9aa";
@@ -99,7 +99,7 @@ async function renderGraph() {
       .attr("stroke-width", 1.1)
       .attr("cursor", "pointer")
       .style("filter", (node) =>
-        node.type === "note"
+        node.type === "page"
           ? "drop-shadow(0 0 8px rgba(241, 100, 49, 0.18))"
           : "drop-shadow(0 0 6px rgba(255, 255, 255, 0.06))",
       )

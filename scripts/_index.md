@@ -5,10 +5,9 @@ path: scripts/
 
 # Scripts
 
-Python backend for wiki-ai: a stdlib `http.server` app, the browser-facing templates, and the static assets used by the graph view.
+Supporting scripts for wiki-ai: the project bootstrap script plus the stdlib Python web server and its browser assets.
 
 ## Contents
 
 
-- [[static/_index]] — Static files served by the web UI (JavaScript, CSS).
-- [[templates/_index]] — HTML templates rendered by the stdlib Python server.
+- [[server/_index]] — Python web server, templates, and static assets used by the wiki browser.

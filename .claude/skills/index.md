@@ -5,13 +5,13 @@ Documents a directory's structure and contents by creating or regenerating its `
 ## When to invoke
 
 - After creating a new directory (called by `hierarchy`)
-- After adding or removing a note from a directory (called by `research`, `cleanup`)
+- After adding or removing a page from a directory (called by `research`, `cleanup`)
 - Directly to refresh stale or missing directory documentation
 - When any directory is discovered to be missing an `_index.md` — every directory in the wiki must have one
 
 ## Inputs
 
-- Directory path to index (e.g. `notes/game-mechanics/`)
+- Directory path to index (e.g. `pages/game-mechanics/`)
 
 ## Directory index template
 
@@ -20,18 +20,18 @@ Every directory index must follow this exact structure:
 ```markdown
 ---
 title: Topic Title
-path: notes/topic/
+path: pages/topic/
 ---
 
 # Topic Title
 
-One or two sentences of context. What unifies these notes?
+One or two sentences of context. What unifies these pages?
 What questions does this cluster address?
 
 ## Contents
 
-- [[note-slug]] — One sentence describing what this note covers.
-- [[another-note]] — One sentence describing what this note covers.
+- [[page-slug]] — One sentence describing what this page covers.
+- [[another-page]] — One sentence describing what this page covers.
 - [[subtopic/_index]] — One sentence describing what this subdirectory contains.
 ```
 
@@ -47,10 +47,10 @@ Key points:
    - Reuse any still-correct title or context if it helps, but rewrite the file as needed.
    - If no existing file, derive a title from the directory name (kebab-case → Title Case) and set `path:` from the directory argument.
 2. **Scan the directory** for:
-   - `.md` files (exclude `_index.md` itself) — these are notes.
+   - `.md` files (exclude `_index.md` itself) — these are pages.
    - Subdirectories that contain an `_index.md` — these are sub-topic clusters.
 3. **Collect descriptions**:
-   - For each note: use its frontmatter `description` field. If absent, use the first non-heading sentence of its body. If still absent, use its `title` frontmatter value.
+   - For each page: use its frontmatter `description` field. If absent, use the first non-heading sentence of its body. If still absent, use its `title` frontmatter value.
    - For each subdirectory: use the first sentence of the context in the subdirectory's `_index.md` (the text between the `# Heading` and `## Contents`). If absent, use the subdirectory's `title` frontmatter.
 4. **Build the contents list**:
    - Format each line: `- [[slug]] — Description.`

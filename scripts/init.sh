@@ -16,11 +16,11 @@ if [ -e "$TARGET_DIR" ]; then
 fi
 
 mkdir -p "$TARGET_DIR/.claude/skills" \
-  "$TARGET_DIR/notes" \
+  "$TARGET_DIR/pages" \
   "$TARGET_DIR/reports" \
   "$TARGET_DIR/sources/assets" \
-  "$TARGET_DIR/scripts/static" \
-  "$TARGET_DIR/scripts/templates"
+  "$TARGET_DIR/scripts/server/static" \
+  "$TARGET_DIR/scripts/server/templates"
 
 fetch() {
   remote_path=$1
@@ -30,18 +30,18 @@ fetch() {
 
 fetch "CLAUDE.md" "CLAUDE.md"
 fetch "README.md" "README.md"
-fetch ".claude/_index.md" ".claude/_index.md"
-fetch ".claude/skills/_index.md" ".claude/skills/_index.md"
 fetch ".claude/skills/research.md" ".claude/skills/research.md"
+fetch ".claude/skills/sources.md" ".claude/skills/sources.md"
 fetch ".claude/skills/index.md" ".claude/skills/index.md"
-fetch "scripts/main.py" "scripts/main.py"
 fetch "scripts/_index.md" "scripts/_index.md"
-fetch "scripts/static/style.css" "scripts/static/style.css"
-fetch "scripts/static/graph.js" "scripts/static/graph.js"
-fetch "scripts/static/_index.md" "scripts/static/_index.md"
-fetch "scripts/templates/base.html" "scripts/templates/base.html"
-fetch "scripts/templates/note.html" "scripts/templates/note.html"
-fetch "scripts/templates/_index.md" "scripts/templates/_index.md"
+fetch "scripts/server/_index.md" "scripts/server/_index.md"
+fetch "scripts/server/main.py" "scripts/server/main.py"
+fetch "scripts/server/static/style.css" "scripts/server/static/style.css"
+fetch "scripts/server/static/graph.js" "scripts/server/static/graph.js"
+fetch "scripts/server/static/_index.md" "scripts/server/static/_index.md"
+fetch "scripts/server/templates/base.html" "scripts/server/templates/base.html"
+fetch "scripts/server/templates/page.html" "scripts/server/templates/page.html"
+fetch "scripts/server/templates/_index.md" "scripts/server/templates/_index.md"
 fetch "sources/_index.md" "sources/_index.md"
 fetch "sources/assets/_index.md" "sources/assets/_index.md"
 
@@ -56,20 +56,20 @@ Project home for this wiki.
 
 ## Contents
 
-- [[notes/_index]] — Research notes organized by topic.
-- [[reports/_index]] — Generated reports synthesized from research notes.
+- [[pages/_index]] — Research pages organized by topic.
+- [[reports/_index]] — Generated reports synthesized from research pages.
 - [[sources/_index]] — External sources: bibliography and raw assets.
 EOF
 
-cat > "$TARGET_DIR/notes/_index.md" <<'EOF'
+cat > "$TARGET_DIR/pages/_index.md" <<'EOF'
 ---
-title: Notes
-path: notes/
+title: Pages
+path: pages/
 ---
 
-# Notes
+# Pages
 
-Research notes organized by topic.
+Research pages organized by topic.
 
 ## Contents
 
@@ -83,7 +83,7 @@ path: reports/
 
 # Reports
 
-Generated reports synthesized from research notes.
+Generated reports synthesized from research pages.
 
 ## Contents
 
@@ -96,15 +96,7 @@ title: Bibliography
 
 # Bibliography
 
-All external sources used in this wiki. Notes link here via `[[bibliography#slug]]` — never inline raw URLs in notes.
-
-<!-- Entry format:
-## slug
-- **Title:** Page or document title
-- **URL:** https://example.com
-- **Accessed:** YYYY-MM-DD
-- **Summary:** One-sentence description of the source.
--->
+All external sources used in this wiki. Pages link here via `[[bibliography#slug]]` — never inline raw URLs in pages.
 EOF
 
 cd "$TARGET_DIR"
@@ -115,4 +107,4 @@ git commit -m "Initial wiki-ai scaffold" >/dev/null 2>&1 || true
 printf '\nCreated %s\n\n' "$PROJECT_NAME"
 printf 'Next steps:\n'
 printf '  1. Open the folder in Claude Code.\n'
-printf '  2. Run: python scripts/main.py\n'
+printf '  2. Run: python scripts/server/main.py\n'

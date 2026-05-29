@@ -1,29 +1,29 @@
 # backlinks
 
-Maintains the `## Backlinks` section at the bottom of every note under `notes/`.
+Maintains the `## Backlinks` section at the bottom of every page under `pages/`.
 
 ## When to invoke
 
-- After creating or updating a note (called by `research`)
-- After renaming or moving a note (called by `cleanup`)
+- After creating or updating a page (called by `research`)
+- After renaming or moving a page (called by `cleanup`)
 - As a standalone audit/repair pass across the whole wiki
 
 ## How backlinks work
 
-Every note that contains `[[other-note]]` creates a backlink in `other-note.md`. The `## Backlinks` section at the bottom of each note lists every note that links to it. This section is structural — the web server strips it before rendering HTML — so it should never contain narrative content.
+Every page that contains `[[other-page]]` creates a backlink in `other-page.md`. The `## Backlinks` section at the bottom of each page lists every page that links to it. This section is structural — the web server strips it before rendering HTML — so it should never contain narrative content.
 
 ## Inputs
 
-- `update <note-path>` — rebuild backlinks for one specific note
-- `update-all` — rebuild backlinks for every note in `notes/`
-- `scan <note-path>` — report what this note links to and what links to it, without writing anything
+- `update <page-path>` — rebuild backlinks for one specific page
+- `update-all` — rebuild backlinks for every page in `pages/`
+- `scan <page-path>` — report what this page links to and what links to it, without writing anything
 
-## Steps — update single note
+## Steps — update single page
 
-1. Determine the slug of the target note: filename without `.md`.
-2. Search all `.md` files under `notes/` and `reports/` for `[[<slug>]]` occurrences.
-3. Collect the set of matching files as backlink sources (deduplicate, exclude the note itself).
-4. Open the target note:
+1. Determine the slug of the target page: filename without `.md`.
+2. Search all `.md` files under `pages/` and `reports/` for `[[<slug>]]` occurrences.
+3. Collect the set of matching files as backlink sources (deduplicate, exclude the page itself).
+4. Open the target page:
    - If a `## Backlinks` section exists: replace everything from that heading to the end of file.
    - If not: append the section at the end of the file.
 5. Write the section:
@@ -32,8 +32,8 @@ Every note that contains `[[other-note]]` creates a backlink in `other-note.md`.
 ## Backlinks
 
 <!-- Auto-maintained by backlinks skill -->
-- [[source-note-one]]
-- [[source-note-two]]
+- [[source-page-one]]
+- [[source-page-two]]
 ```
 
 If no backlinks exist:
@@ -47,14 +47,14 @@ If no backlinks exist:
 
 ## Steps — update-all
 
-1. Build a full link map: for every `.md` file under `notes/` and `reports/`, extract all `[[slug]]` references.
+1. Build a full link map: for every `.md` file under `pages/` and `reports/`, extract all `[[slug]]` references.
 2. Invert the map: for each slug, collect all files that reference it.
-3. For every `.md` file in `notes/`, apply the single-note update logic using the inverted map.
-4. Report a summary: N notes updated, N already up-to-date, N with no backlinks.
+3. For every `.md` file in `pages/`, apply the single-page update logic using the inverted map.
+4. Report a summary: N pages updated, N already up-to-date, N with no backlinks.
 
 ## Steps — scan
 
-1. Extract all `[[slug]]` references from the target note → these are its outbound links.
+1. Extract all `[[slug]]` references from the target page → these are its outbound links.
 2. Search all `.md` files for `[[<target-slug>]]` → these are its inbound links.
 3. Print both lists without modifying any files.
 
@@ -64,5 +64,5 @@ If no backlinks exist:
 - All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
 - This section will be overwritten on the next run.
 - Backlinks from `reports/` count and must be included.
-- `_index.md` files may have backlinks; treat them like any other note.
+- `_index.md` files may have backlinks; treat them like any other page.
 - Sort backlink entries alphabetically by slug.

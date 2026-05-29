@@ -1,6 +1,6 @@
 ---
 title: Static Assets
-path: scripts/static/
+path: scripts/server/static/
 ---
 
 # Static Assets

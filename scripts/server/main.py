@@ -9,10 +9,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path, PurePosixPath
 from urllib.parse import unquote, urlparse
 
-ROOT = Path(__file__).resolve().parent.parent
-STATIC_DIR = ROOT / "scripts" / "static"
-TEMPLATES_DIR = ROOT / "scripts" / "templates"
-ROOT_SEGMENTS = {".claude", "notes", "reports", "scripts", "sources"}
+SERVER_DIR = Path(__file__).resolve().parent
+ROOT = SERVER_DIR.parent.parent
+STATIC_DIR = SERVER_DIR / "static"
+TEMPLATES_DIR = SERVER_DIR / "templates"
+ROOT_SEGMENTS = {".claude", "pages", "reports", "scripts", "sources"}
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
@@ -156,7 +157,7 @@ def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path
         if len(raw.parts) == 1:
             bases.extend(
                 [
-                    Path("notes") / raw.parts[0],
+                    Path("pages") / raw.parts[0],
                     Path("reports") / raw.parts[0],
                     Path("sources") / raw.parts[0],
                     Path(".claude") / raw.parts[0],
@@ -350,7 +351,7 @@ def render_template(name: str, context: dict[str, str]) -> str:
     return TEMPLATE_RE.sub(lambda match: context.get(match.group(1), ""), template)
 
 
-def note_meta_html(relative_path: Path, metadata: dict[str, object]) -> str:
+def page_meta_html(relative_path: Path, metadata: dict[str, object]) -> str:
     parts = [
         f'<li><span class="meta-key">Path</span><span class="meta-value">{html.escape(relative_path.as_posix())}</span></li>'
     ]
@@ -368,7 +369,7 @@ def note_meta_html(relative_path: Path, metadata: dict[str, object]) -> str:
         parts.append(
             f'<li><span class="meta-key">Tags</span><span class="meta-value tag-list">{tag_html}</span></li>'
         )
-    return f'<ul class="note-meta">{"".join(parts)}</ul>'
+    return f'<ul class="page-meta">{"".join(parts)}</ul>'
 
 
 def render_markdown_page(relative_path: Path) -> bytes:
@@ -377,10 +378,10 @@ def render_markdown_page(relative_path: Path) -> bytes:
     metadata, body = parse_frontmatter(raw)
     title = str(metadata.get("title") or slug_to_title(relative_path.stem))
     description = str(metadata.get("description") or "")
-    note_html = render_template(
-        "note.html",
+    page_html = render_template(
+        "page.html",
         {
-            "meta": note_meta_html(relative_path, metadata),
+            "meta": page_meta_html(relative_path, metadata),
             "content": markdown_to_html(body, relative_path),
         },
     )
@@ -389,8 +390,8 @@ def render_markdown_page(relative_path: Path) -> bytes:
         {
             "title": html.escape(title),
             "description": html.escape(description),
-            "body_class": "note-page",
-            "content": note_html,
+            "body_class": "page-view",
+            "content": page_html,
             "scripts": "",
         },
     )
@@ -434,8 +435,8 @@ def detect_node_type(relative_path: Path) -> str:
         return "index"
     if relative_path.parts and relative_path.parts[0] == "reports":
         return "report"
-    if relative_path.parts and relative_path.parts[0] == "notes":
-        return "note"
+    if relative_path.parts and relative_path.parts[0] == "pages":
+        return "page"
     return "other"
 
 

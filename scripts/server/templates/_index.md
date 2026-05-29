@@ -1,6 +1,6 @@
 ---
 title: Templates
-path: scripts/templates/
+path: scripts/server/templates/
 ---
 
 # Templates
