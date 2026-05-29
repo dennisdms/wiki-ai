@@ -5,7 +5,7 @@ description: Choose the best location for a new or reorganized page under `wiki/
 
 # Choose Page Location
 
-Decide where a page belongs in the `wiki/pages/` folder hierarchy and return the recommended path.
+Decide where a page belongs in the `wiki/pages/` folder hierarchy, create the target directory if needed, and return only the resolved page path.
 
 ## When to invoke
 
@@ -29,12 +29,12 @@ Use this skill before creating a new page, when reorganizing existing pages, or 
    - The topic is broad enough to eventually hold 3 or more sibling pages, or
    - No existing directory is a plausible parent.
    - Use a lowercase kebab-case name derived from the topic.
-4. Return the recommended target path and note whether the caller should create a new directory first.
-5. Do not create files, directories, or indexes. The caller is responsible for those side effects.
+4. If the target directory does not already exist, run `mkdir -p` for that directory.
+5. Output only the resolved page path (for example `wiki/pages/game-engines/bevy.md`).
 
 ## Rules
 
-- This skill plans only. It does not create directories, pages, or indexes.
+- Output the path only — no reasoning, no "here's why", no action summary.
 - Never recommend a directory for a single page unless it is a clear entry point for a future cluster.
 - Max nesting depth is 3 levels: `wiki/pages/<topic>/<subtopic>/page.md`.
 - A directory with only one child page is usually a smell. Collapse it into the parent unless growth is expected soon.
