@@ -135,7 +135,8 @@ def safe_relative(path: Path, base: Path) -> Path | None:
 
 
 def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path]:
-    link_target = target.split("#", 1)[0].strip()
+    link_target, _ = parse_wikilink(target)
+    link_target = link_target.split("#", 1)[0].strip()
     if not link_target:
         return []
 

@@ -8,7 +8,7 @@ fi
 
 PROJECT_NAME=$1
 TARGET_DIR=$PROJECT_NAME
-RAW_BASE="https://raw.githubusercontent.com/dennisdms/wiki-ai/main"
+RAW_BASE="${WIKI_AI_RAW_BASE:-https://raw.githubusercontent.com/dennisdms/wiki-ai/main}"
 
 if [ -e "$TARGET_DIR" ]; then
   echo "error: target already exists: $TARGET_DIR" >&2
@@ -33,6 +33,10 @@ fetch "README.md" "README.md"
 fetch ".claude/skills/research.md" ".claude/skills/research.md"
 fetch ".claude/skills/sources.md" ".claude/skills/sources.md"
 fetch ".claude/skills/index.md" ".claude/skills/index.md"
+fetch ".claude/skills/backlinks.md" ".claude/skills/backlinks.md"
+fetch ".claude/skills/hierarchy.md" ".claude/skills/hierarchy.md"
+fetch ".claude/skills/page.md" ".claude/skills/page.md"
+fetch ".claude/skills/tags.md" ".claude/skills/tags.md"
 fetch "scripts/_index.md" "scripts/_index.md"
 fetch "scripts/server/_index.md" "scripts/server/_index.md"
 fetch "scripts/server/main.py" "scripts/server/main.py"
@@ -107,4 +111,4 @@ git commit -m "Initial wiki-ai scaffold" >/dev/null 2>&1 || true
 printf '\nCreated %s\n\n' "$PROJECT_NAME"
 printf 'Next steps:\n'
 printf '  1. Open the folder in Claude Code.\n'
-printf '  2. Run: python scripts/server/main.py\n'
+printf '  2. Run: python3 scripts/server/main.py\n'

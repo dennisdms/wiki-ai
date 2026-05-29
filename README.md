@@ -1,6 +1,6 @@
 # wiki-ai
 
-An AI-powered research wiki template. One repo = one project. Claude Code does the research and maintains the wiki's Markdown end to end; run `python scripts/server/main.py` to browse the wiki in your browser.
+An AI-powered research wiki template. One repo = one project. Claude Code does the research and maintains the wiki's Markdown end to end; run `python3 scripts/server/main.py` to browse the wiki in your browser.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init.sh | sh -s -- "my-project"
@@ -56,10 +56,10 @@ python3 scripts/server/main.py --port 8080
 - [x] Require project name as first argument; error if missing
 - [x] Create target directory; error if it already exists
 - [x] Fetch template files from raw GitHub (`curl -fsSL`)
-  - `CLAUDE.md`, `.claude/skills/research`, `.claude/skills/sources`, `.claude/skills/index`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`
+  - `CLAUDE.md`, `.claude/skills/research`, `.claude/skills/sources`, `.claude/skills/index`, `.claude/skills/backlinks`, `.claude/skills/hierarchy`, `.claude/skills/page`, `.claude/skills/tags`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`
 - [x] Scaffold stub files: `_index.md`, `pages/_index.md`, `reports/_index.md`, `sources/bibliography.md`
 - [x] Run `git init` and make initial commit
-- [x] Print next steps: open in Claude Code, run `python scripts/server/main.py`
+- [x] Print next steps: open in Claude Code, run `python3 scripts/server/main.py`
 - [x] Works on macOS and Linux — only requires `bash`, `curl`, `git`
 
 ---

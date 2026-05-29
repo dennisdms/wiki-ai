@@ -1,10 +1,11 @@
 ---
 title: Reports
+path: reports/
 ---
 
 # Reports
 
-Generated research reports. Never hand-edited — regenerate with the `report` skill.
+Generated reports synthesized from research pages.
 
 ## Contents
 

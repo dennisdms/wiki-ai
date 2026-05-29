@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown pages. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python scripts/server/main.py` — no install step, no dependencies.
+wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown pages. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python3 scripts/server/main.py` — no install step, no dependencies.
 
 Users start a new wiki with a single command — no forking:
 ```sh
@@ -29,7 +29,7 @@ sources/
 pages/             # Research pages, recursively organized with _index.md per folder
 reports/           # Generated reports
 .claude/
-  skills/          # research, index
+  skills/          # research, sources, index, hierarchy, page, backlinks, tags
 scripts/
   init.sh          # Project bootstrap script
   server/          # stdlib Python server, static/, templates/
@@ -64,3 +64,7 @@ Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-d
 | `research` | Research a topic, save a page, update sources, and refresh the relevant folder indexes |
 | `sources` | Maintain `sources/bibliography.md` for external URLs and source metadata |
 | `index` | Document a directory's structure in `_index.md` |
+| `hierarchy` | Choose where new pages belong inside `pages/` |
+| `page` | Create a blank page with the required frontmatter and backlinks stub |
+| `backlinks` | Rebuild the `## Backlinks` section for pages |
+| `tags` | Keep page tags consistent across the wiki |
