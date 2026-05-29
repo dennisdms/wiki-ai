@@ -11,9 +11,10 @@ from urllib.parse import unquote, urlparse
 
 SERVER_DIR = Path(__file__).resolve().parent
 ROOT = SERVER_DIR.parent.parent
+WIKI_ROOT = ROOT / "wiki"
 STATIC_DIR = SERVER_DIR / "static"
 TEMPLATES_DIR = SERVER_DIR / "templates"
-ROOT_SEGMENTS = {".claude", "pages", "reports", "scripts", "sources"}
+ROOT_SEGMENTS = {"pages", "reports", "sources"}
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
@@ -185,8 +186,8 @@ def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path
 
 def resolve_link_path(target: str, current_relative: Path) -> Path | None:
     for candidate in repo_candidates_for_target(target, current_relative):
-        absolute = ROOT / candidate
-        relative = safe_relative(absolute, ROOT)
+        absolute = WIKI_ROOT / candidate
+        relative = safe_relative(absolute, WIKI_ROOT)
         if relative is not None and absolute.exists() and absolute.is_file():
             return relative
     return None
@@ -374,7 +375,7 @@ def page_meta_html(relative_path: Path, metadata: dict[str, object]) -> str:
 
 
 def render_markdown_page(relative_path: Path) -> bytes:
-    absolute_path = ROOT / relative_path
+    absolute_path = WIKI_ROOT / relative_path
     raw = read_text(absolute_path)
     metadata, body = parse_frontmatter(raw)
     title = str(metadata.get("title") or slug_to_title(relative_path.stem))
@@ -402,7 +403,7 @@ def render_markdown_page(relative_path: Path) -> bytes:
 def resolve_request_to_markdown(request_path: str) -> Path | None:
     raw_path = unquote(urlparse(request_path).path)
     if raw_path == "/":
-        candidate = ROOT / "_index.md"
+        candidate = WIKI_ROOT / "_index.md"
         return Path("_index.md") if candidate.exists() else None
 
     clean = raw_path.lstrip("/")
@@ -419,8 +420,8 @@ def resolve_request_to_markdown(request_path: str) -> Path | None:
             options.insert(0, relative.with_suffix(".md"))
 
     for option in options:
-        absolute = ROOT / option
-        rel = safe_relative(absolute, ROOT)
+        absolute = WIKI_ROOT / option
+        rel = safe_relative(absolute, WIKI_ROOT)
         if (
             rel is not None
             and absolute.exists()
@@ -442,7 +443,7 @@ def detect_node_type(relative_path: Path) -> str:
 
 
 def extract_links(relative_path: Path) -> list[str]:
-    _, body = parse_frontmatter(read_text(ROOT / relative_path))
+    _, body = parse_frontmatter(read_text(WIKI_ROOT / relative_path))
     return [
         match.group(1).strip()
         for match in WIKILINK_RE.finditer(visible_wikilink_source(body))
@@ -451,14 +452,16 @@ def extract_links(relative_path: Path) -> list[str]:
 
 def build_graph() -> dict[str, object]:
     markdown_files = sorted(
-        path for path in ROOT.rglob("*.md") if safe_relative(path, ROOT) is not None
+        path
+        for path in WIKI_ROOT.rglob("*.md")
+        if safe_relative(path, WIKI_ROOT) is not None
     )
     nodes: list[dict[str, object]] = []
     links: list[dict[str, object]] = []
     node_index: dict[str, Path] = {}
 
     for path in markdown_files:
-        relative = path.relative_to(ROOT)
+        relative = path.relative_to(WIKI_ROOT)
         metadata, _ = parse_frontmatter(read_text(path))
         node_id = relative.as_posix()
         node_index[node_id] = relative

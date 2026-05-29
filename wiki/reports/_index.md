@@ -1,6 +1,6 @@
 ---
 title: Reports
-path: reports/
+path: wiki/reports/
 ---
 
 # Reports

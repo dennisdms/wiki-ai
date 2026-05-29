@@ -1,6 +1,6 @@
 ---
 title: Pages
-path: pages/
+path: wiki/pages/
 ---
 
 # Pages

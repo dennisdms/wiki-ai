@@ -2,12 +2,12 @@
   "permissions": {
     "allow": [
       "Read(**)",
-      "Write(content/**)",
-      "Write(reports/**)",
-      "Write(sources/bibliography.md)",
-      "Write(_index.md)",
-      "Write(content/_index.md)",
-      "Write(reports/_index.md)",
+      "Write(wiki/pages/**)",
+      "Write(wiki/reports/**)",
+      "Write(wiki/sources/bibliography.md)",
+      "Write(wiki/_index.md)",
+      "Write(wiki/pages/_index.md)",
+      "Write(wiki/reports/_index.md)",
       "Bash(find:*)",
       "Bash(grep:*)",
       "Bash(git status:*)",

@@ -1,6 +1,6 @@
 ---
 title: Assets
-path: sources/assets/
+path: wiki/sources/assets/
 ---
 
 # Assets

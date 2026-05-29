@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown pages. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python3 scripts/server/main.py` — no install step, no dependencies.
+wiki-ai is a template for an AI-powered single-project research wiki. Each repo instance is one research project (e.g. "designing a game"). Claude Code is the primary interface — users invoke skills to research and navigate interlinked Markdown pages. A stdlib Python web server with a D3.js graph view lets anyone browse the wiki with `python3 scripts/server/main.py` — no install step, no dependencies. The browser UI is rooted at `wiki/`.
 
 Users start a new wiki with a single command — no forking:
 ```sh
@@ -22,17 +22,18 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 ## Folder structure
 
 ```
-_index.md          # Project home
-sources/
-  bibliography.md  # All external URLs — pages link here, never inline raw URLs
-  assets/          # Source materials (PDFs, images, etc.)
-pages/             # Research pages, recursively organized with _index.md per folder
-reports/           # Generated reports
+wiki/
+  _index.md        # Wiki home served at /
+  sources/
+    bibliography.md  # All external URLs — pages link here, never inline raw URLs
+    assets/          # Source materials (PDFs, images, etc.)
+  pages/             # Research pages, recursively organized with _index.md per folder
+  reports/           # Generated reports
 .claude/
-  skills/          # research, sources, index, hierarchy, page, backlinks, tags
+  skills/            # research, sources, index, hierarchy, page, backlinks, tags
 scripts/
-  init.sh          # Project bootstrap script
-  server/          # stdlib Python server, static/, templates/
+  init.sh            # Project bootstrap script
+  server/            # stdlib Python server, static/, templates/
 ```
 
 ## Branching strategy
@@ -41,7 +42,7 @@ This repo serves two distinct purposes depending on the active branch. Read the 
 
 ### `main` — template development
 
-On `main` you are **building wiki-ai itself**: the skills, the init script, the web server, and the docs. Work here is software development. The `.md` files (CLAUDE.md, README.md, stub indexes) are part of the template, not a live wiki. Do not add research pages or bibliography entries on this branch.
+On `main` you are **building wiki-ai itself**: the skills, the init script, the web server, and the docs. Work here is software development. The `.md` files in the repo root plus the stub wiki files under `wiki/` are part of the template, not a live wiki. Do not add research pages or bibliography entries on this branch.
 
 ### `wiki_*` — live wiki instances
 
@@ -49,22 +50,23 @@ Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-d
 
 **On a `wiki_*` branch:**
 - All wiki skills apply in full (`research`, `index`).
-- The wiki content (pages, reports, bibliography) on these branches is real research, not placeholder scaffolding.
+- The wiki content under `wiki/` (`pages`, `reports`, `sources`) is real research, not placeholder scaffolding.
 
 ## Key invariants
 
-- `[[wiki-links]]` connect pages to each other and to `sources/bibliography.md` entries.
-- `_index.md` files are recursive: every directory has one to document that folder's structure, maintained by the `index` skill.
-- `sources/bibliography.md` is the only place raw URLs live.
+- `[[wiki-links]]` connect pages to each other and to `wiki/sources/bibliography.md` entries.
+- `_index.md` files are recursive: every directory in `wiki/` has one to document that folder's structure, maintained by the `index` skill.
+- `wiki/sources/bibliography.md` is the only place raw URLs live.
+- `scripts/server/main.py` serves `wiki/` as the site root.
 
 ## Skills
 
 | Skill | Purpose |
 |---|---|
 | `research` | Research a topic, save a page, update sources, and refresh the relevant folder indexes |
-| `sources` | Maintain `sources/bibliography.md` for external URLs and source metadata |
+| `sources` | Maintain `wiki/sources/bibliography.md` for external URLs and source metadata |
 | `index` | Document a directory's structure in `_index.md` |
-| `hierarchy` | Choose where new pages belong inside `pages/` |
+| `hierarchy` | Choose where new pages belong inside `wiki/pages/` |
 | `page` | Create a blank page with the required frontmatter and backlinks stub |
 | `backlinks` | Rebuild the `## Backlinks` section for pages |
 | `tags` | Keep page tags consistent across the wiki |

@@ -1,17 +1,14 @@
 ---
-title: wiki-ai
+title: wiki-ai repository
 ---
 
-# wiki-ai
+# wiki-ai repository
 
-Template for an AI-powered single-project research wiki. Each repo instance is one research project; Claude Code is the primary interface, with skills for research, pages, and link graph maintenance. A stdlib Python web server provides a browser UI with a D3-powered graph view.
+Template repository for `wiki-ai`. The browseable wiki content for this branch now lives under `wiki/`, while the repo root contains template docs, skills, and scripts.
 
 ## Contents
 
-
-- [[CLAUDE]] — Claude Code project instructions: scope, branching strategy, folder conventions, and skill catalog.
-- [[pages/_index]] — Research pages organized by topic.
-- [[README]] — Project documentation and development todo list.
-- [[reports/_index]] — Generated reports synthesized from research pages.
-- [[scripts/_index]] — Init script plus the Python server, templates, and static web assets.
-- [[sources/_index]] — External sources: bibliography and raw assets.
+- [[CLAUDE]] — Project guidance, branching rules, and template invariants.
+- [[README]] — Setup, development notes, and implementation plan.
+- [[wiki/_index]] — The wiki content served by `scripts/server/main.py`.
+- [[scripts/_index]] — Bootstrap script and stdlib Python web server.

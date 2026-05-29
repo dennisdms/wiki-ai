@@ -16,9 +16,9 @@ if [ -e "$TARGET_DIR" ]; then
 fi
 
 mkdir -p "$TARGET_DIR/.claude/skills" \
-  "$TARGET_DIR/pages" \
-  "$TARGET_DIR/reports" \
-  "$TARGET_DIR/sources/assets" \
+  "$TARGET_DIR/wiki/pages" \
+  "$TARGET_DIR/wiki/reports" \
+  "$TARGET_DIR/wiki/sources/assets" \
   "$TARGET_DIR/scripts/server/static" \
   "$TARGET_DIR/scripts/server/templates"
 
@@ -46,10 +46,10 @@ fetch "scripts/server/static/_index.md" "scripts/server/static/_index.md"
 fetch "scripts/server/templates/base.html" "scripts/server/templates/base.html"
 fetch "scripts/server/templates/page.html" "scripts/server/templates/page.html"
 fetch "scripts/server/templates/_index.md" "scripts/server/templates/_index.md"
-fetch "sources/_index.md" "sources/_index.md"
-fetch "sources/assets/_index.md" "sources/assets/_index.md"
+fetch "wiki/sources/_index.md" "wiki/sources/_index.md"
+fetch "wiki/sources/assets/_index.md" "wiki/sources/assets/_index.md"
 
-cat > "$TARGET_DIR/_index.md" <<EOF
+cat > "$TARGET_DIR/wiki/_index.md" <<EOF
 ---
 title: $PROJECT_NAME
 ---
@@ -65,10 +65,10 @@ Project home for this wiki.
 - [[sources/_index]] — External sources: bibliography and raw assets.
 EOF
 
-cat > "$TARGET_DIR/pages/_index.md" <<'EOF'
+cat > "$TARGET_DIR/wiki/pages/_index.md" <<'EOF'
 ---
 title: Pages
-path: pages/
+path: wiki/pages/
 ---
 
 # Pages
@@ -79,10 +79,10 @@ Research pages organized by topic.
 
 EOF
 
-cat > "$TARGET_DIR/reports/_index.md" <<'EOF'
+cat > "$TARGET_DIR/wiki/reports/_index.md" <<'EOF'
 ---
 title: Reports
-path: reports/
+path: wiki/reports/
 ---
 
 # Reports
@@ -93,7 +93,7 @@ Generated reports synthesized from research pages.
 
 EOF
 
-cat > "$TARGET_DIR/sources/bibliography.md" <<'EOF'
+cat > "$TARGET_DIR/wiki/sources/bibliography.md" <<'EOF'
 ---
 title: Bibliography
 ---

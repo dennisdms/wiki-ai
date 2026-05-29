@@ -1,6 +1,6 @@
 ---
 title: Sources
-path: sources/
+path: wiki/sources/
 ---
 
 # Sources
