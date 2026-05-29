@@ -21,13 +21,15 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 
 ## Folder structure
 
+All wiki markdown is AI-maintained. The only user-managed exception is `sources/assets/`.
+
 ```
-_index.md          # Project home (auto-maintained)
+_index.md          # Project home
 sources/
   bibliography.md  # All external URLs — notes link here, never inline raw URLs
   assets/          # User-pasted source materials (PDFs, images, etc.)
 notes/             # Research notes, recursively organized with _index.md per folder
-reports/           # Generated reports — never hand-edited
+reports/           # Generated reports
 .claude/
   skills/          # research, index
 scripts/           # stdlib Python server, static/, templates/
@@ -55,7 +57,7 @@ Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-d
 
 **Claude Code may only read and write `.md` files anywhere in the wiki.** All other files — Python scripts, HTML templates, CSS, JavaScript, Dockerfiles, YAML configs, shell scripts, `.gitkeep`, binaries, assets — are off-limits. Do not create, edit, move, rename, or delete them under any circumstances.
 
-Claude Code has full responsibility for every `.md` file in the wiki: notes, indexes, reports, bibliography, and this file. Non-markdown files are managed by the user or by external tooling.
+Claude Code has full responsibility for every `.md` file in the wiki: notes, indexes, reports, bibliography, and this file. All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
 
 The one exception is `sources/assets/` — even the `.md` files there (if any) are user-managed. Do not touch anything inside `sources/assets/`.
 
@@ -64,6 +66,7 @@ The one exception is `sources/assets/` — even the `.md` files there (if any) a
 - `[[wiki-links]]` connect notes to each other and to `sources/bibliography.md` entries.
 - `_index.md` files are recursive: every directory has one, maintained by the `index` skill.
 - `sources/bibliography.md` is the only place raw URLs live.
+- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
 - `sources/assets/` is user-managed — AI never touches it.
 - All Python (server) lives in `scripts/` — AI never touches these files.
 

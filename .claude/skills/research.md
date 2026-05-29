@@ -1,6 +1,6 @@
 # research
 
-Research a topic, create or update a note, and keep all connected files in sync.
+Research a topic, create, update, or rewrite a note, and keep all connected files in sync.
 
 ## When to invoke
 
@@ -34,7 +34,7 @@ The user invokes this skill with a topic to research. They may also provide a so
 ### 2. Check for an existing note
 
 - Grep `notes/` for `.md` files whose `title` frontmatter or filename closely matches the topic.
-- If a match is found: update it rather than creating a new file. Jump to step 4.
+- If a match is found: update or rewrite it rather than creating a new file. Jump to step 4.
 
 ### 3. Determine placement
 
@@ -84,6 +84,8 @@ Body guidelines:
 
 ## Rules
 
+- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+- Notes may be rewritten or structurally reorganized when needed to keep them accurate, coherent, and well-linked.
 - One note per invocation. If the topic is too broad, narrow it or ask the user to split it.
 - Never inline raw URLs in note bodies — always route through `bibliography`.
 - Never create, move, rename, or delete files in `sources/assets/` — that directory is user-managed.

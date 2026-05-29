@@ -61,7 +61,8 @@ If no backlinks exist:
 ## Rules
 
 - `## Backlinks` must always be the last section in the file — nothing may follow it.
-- Never edit a `## Backlinks` section by hand; it will be overwritten on the next run.
+- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+- This section will be overwritten on the next run.
 - Backlinks from `reports/` count and must be included.
 - `_index.md` files may have backlinks; treat them like any other note.
 - Sort backlink entries alphabetically by slug.

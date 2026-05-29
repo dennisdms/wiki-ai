@@ -1,6 +1,6 @@
 # index
 
-Creates or regenerates an `_index.md` file for a given directory.
+Creates or fully regenerates an `_index.md` file for a given directory.
 
 ## When to invoke
 
@@ -25,7 +25,7 @@ path: notes/topic/
 
 # Topic Title
 
-One or two sentences of hand-written context. What unifies these notes?
+One or two sentences of context. What unifies these notes?
 What questions does this cluster address?
 
 ## Contents
@@ -44,14 +44,14 @@ Key points:
 ## Steps
 
 1. **Read existing `_index.md`** if one exists:
-   - Preserve everything above the `## Contents` heading (the hand-written narrative).
+   - Reuse any still-correct title or context if it helps, but rewrite the file as needed.
    - If no existing file, derive a title from the directory name (kebab-case → Title Case) and set `path:` from the directory argument.
 2. **Scan the directory** for:
    - `.md` files (exclude `_index.md` itself) — these are notes.
    - Subdirectories that contain an `_index.md` — these are sub-topic clusters.
 3. **Collect descriptions**:
    - For each note: use its frontmatter `description` field. If absent, use the first non-heading sentence of its body. If still absent, use its `title` frontmatter value.
-   - For each subdirectory: use the first sentence of the hand-written narrative in the subdirectory's `_index.md` (the text between the `# Heading` and `## Contents`). If absent, use the subdirectory's `title` frontmatter.
+   - For each subdirectory: use the first sentence of the context in the subdirectory's `_index.md` (the text between the `# Heading` and `## Contents`). If absent, use the subdirectory's `title` frontmatter.
 4. **Build the contents list**:
    - Format each line: `- [[slug]] — Description.`
    - For subdirectories: `- [[subdir/_index]] — Description.`
@@ -61,9 +61,10 @@ Key points:
 
 ## Rules
 
+- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+- This skill may regenerate the whole file whenever needed.
 - **Every directory in the wiki must have an `_index.md`.** This is a hard invariant. If you encounter a directory without one while running this skill, create it before proceeding.
-- The `## Contents` section is fully regenerated on every run — never hand-edit lines inside it.
-- Everything above `## Contents` (including the hand-written narrative) is preserved unchanged.
+- The `## Contents` section is fully regenerated on every run.
 - Always include the `<!-- Auto-maintained by index skill -->` comment directly above the list.
 - `path:` must reflect the actual directory, with a trailing slash.
 - If the directory is empty, write an empty list with just the comment — do not omit the section.

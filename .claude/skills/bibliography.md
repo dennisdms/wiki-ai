@@ -59,6 +59,8 @@ Each source is an H2 heading (the slug) followed by exactly four fields:
 
 ## Rules
 
+- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+- This skill may rewrite or reorder `sources/bibliography.md` as needed to keep entries consistent and deduplicated.
 - `sources/bibliography.md` is the only file this skill ever writes to.
 - Every entry must have all four fields: Title, URL, Accessed, Summary.
 - Summaries are required and must be substantive — not just a restatement of the title.

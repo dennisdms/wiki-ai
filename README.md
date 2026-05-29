@@ -1,10 +1,18 @@
 # wiki-ai
 
-An AI-powered research wiki template. One repo = one project. Claude Code does the research; run `python scripts/main.py` to browse the wiki in your browser.
+An AI-powered research wiki template. One repo = one project. Claude Code does the research and maintains the wiki's Markdown end to end; run `python scripts/main.py` to browse the wiki in your browser.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init.sh | sh -s -- "my-project"
 ```
+
+---
+
+## Content ownership
+
+All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+
+The only exception is `sources/assets/`, which is user-managed.
 
 ---
 
@@ -25,13 +33,13 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 #### `research`
 - [ ] Accept a topic as input
 - [ ] Search `notes/` for an existing note before creating a new one
-- [ ] Create or update a note under `notes/` with frontmatter (`title`, `tags`, `created`, `updated`)
+- [ ] Create, update, or rewrite a note under `notes/` with frontmatter (`title`, `tags`, `created`, `updated`)
 - [ ] Append new external sources to `sources/bibliography.md` (deduplicate by URL)
 - [ ] Update the parent `_index.md` to include the new note
 
 #### `index`
-- [ ] Scan a directory and regenerate its `_index.md` link list
-- [ ] Preserve any hand-written narrative above the link list
+- [ ] Scan a directory and regenerate its `_index.md`
+- [ ] Regenerate wiki markdown as needed; human edits are not protected state
 
 ---
 
