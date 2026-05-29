@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(content/**)",
+      "Write(reports/**)",
+      "Write(sources/bibliography.md)",
+      "Write(_index.md)",
+      "Write(content/_index.md)",
+      "Write(reports/_index.md)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "WebSearch(*)",
+      "WebFetch(*)"
+    ],
+    "deny": []
+  }
+}
