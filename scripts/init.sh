@@ -15,7 +15,14 @@ if [ -e "$TARGET_DIR" ]; then
   exit 1
 fi
 
-mkdir -p "$TARGET_DIR/.claude/skills" \
+mkdir -p "$TARGET_DIR/.claude/skills/research-topic" \
+  "$TARGET_DIR/.claude/skills/manage-sources" \
+  "$TARGET_DIR/.claude/skills/create-index" \
+  "$TARGET_DIR/.claude/skills/update-backlinks" \
+  "$TARGET_DIR/.claude/skills/choose-page-location" \
+  "$TARGET_DIR/.claude/skills/create-page" \
+  "$TARGET_DIR/.claude/skills/manage-tags" \
+  "$TARGET_DIR/.claude/skills/create-skill" \
   "$TARGET_DIR/wiki/pages" \
   "$TARGET_DIR/wiki/reports" \
   "$TARGET_DIR/wiki/sources/assets" \
@@ -31,13 +38,14 @@ fetch() {
 fetch "CLAUDE.md" "CLAUDE.md"
 fetch "README.md" "README.md"
 fetch ".claude/settings.json" ".claude/settings.json"
-fetch ".claude/skills/research.md" ".claude/skills/research.md"
-fetch ".claude/skills/sources.md" ".claude/skills/sources.md"
-fetch ".claude/skills/index.md" ".claude/skills/index.md"
-fetch ".claude/skills/backlinks.md" ".claude/skills/backlinks.md"
-fetch ".claude/skills/hierarchy.md" ".claude/skills/hierarchy.md"
-fetch ".claude/skills/page.md" ".claude/skills/page.md"
-fetch ".claude/skills/tags.md" ".claude/skills/tags.md"
+fetch ".claude/skills/research-topic/SKILL.md" ".claude/skills/research-topic/SKILL.md"
+fetch ".claude/skills/manage-sources/SKILL.md" ".claude/skills/manage-sources/SKILL.md"
+fetch ".claude/skills/create-index/SKILL.md" ".claude/skills/create-index/SKILL.md"
+fetch ".claude/skills/update-backlinks/SKILL.md" ".claude/skills/update-backlinks/SKILL.md"
+fetch ".claude/skills/choose-page-location/SKILL.md" ".claude/skills/choose-page-location/SKILL.md"
+fetch ".claude/skills/create-page/SKILL.md" ".claude/skills/create-page/SKILL.md"
+fetch ".claude/skills/manage-tags/SKILL.md" ".claude/skills/manage-tags/SKILL.md"
+fetch ".claude/skills/create-skill/SKILL.md" ".claude/skills/create-skill/SKILL.md"
 fetch "scripts/_index.md" "scripts/_index.md"
 fetch "scripts/server/_index.md" "scripts/server/_index.md"
 fetch "scripts/server/main.py" "scripts/server/main.py"

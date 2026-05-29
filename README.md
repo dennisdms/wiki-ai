@@ -30,7 +30,7 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 ### 1. Repo scaffold
 
-- [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/assets/`, `.claude/skills/`, `scripts/server/static/`, `scripts/server/templates/`
+- [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/assets/`, `.claude/skills/<skill>/SKILL.md`, `scripts/server/static/`, `scripts/server/templates/`
 - [x] Ship wiki entrypoints and recursive indexes: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
 - [x] Provide bibliography storage at `wiki/sources/bibliography.md`
 - [x] Include template docs/config: `README.md`, `CLAUDE.md`, `.claude/settings.json`
@@ -40,40 +40,45 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 ### 2. Skills (`.claude/skills/`)
 
-#### `research`
+#### `research-topic`
 - [x] Accept a topic plus optional URL or asset input
 - [x] Reuse an existing page when there is already a close match in `wiki/pages/`
 - [x] Create or rewrite a page with required frontmatter: `title`, `description`, `tags`, `created`, `updated`
 - [x] Keep related pages, parent indexes, backlinks, and tags in sync after page updates
 
-#### `sources`
+#### `manage-sources`
 - [x] Add and deduplicate bibliography entries by URL
 - [x] Support finding, auditing, and removing bibliography entries by slug or URL/title
 - [x] Enforce `wiki/sources/bibliography.md` as the only place raw URLs live
 
-#### `index`
+#### `create-index`
 - [x] Regenerate any directory `_index.md` from the directory's actual markdown contents
 - [x] Include page and subdirectory descriptions in `## Contents`
 - [x] Enforce the invariant that every wiki directory has an `_index.md`
 
-#### `hierarchy`
+#### `choose-page-location`
 - [x] Choose the best target directory for a new page under `wiki/pages/`
 - [x] Create a new subdirectory only when the topic warrants a cluster
 - [x] Refresh parent indexes after structure changes
 
-#### `page`
+#### `create-page`
 - [x] Create a blank page at the correct path with required frontmatter and an empty backlinks section
 - [x] Refuse to overwrite an existing file
 
-#### `backlinks`
+#### `update-backlinks`
 - [x] Rebuild `## Backlinks` for a single page or the entire wiki
 - [x] Include backlinks from both `wiki/pages/` and `wiki/reports/`
 - [x] Keep backlinks sorted and always last in the file
 
-#### `tags`
+#### `manage-tags`
 - [x] Validate per-page tags against the current taxonomy
 - [x] Audit tag usage across `wiki/pages/`
 - [x] Support tag rename and merge operations across the wiki
+
+#### `create-skill`
+- [x] Turn a user request or prompt into a focused Claude Code skill
+- [x] Guide naming, scope, structure, and discovery wording
+- [x] Validate frontmatter, examples, and supporting-file layout before finishing
 
 ---
 
@@ -82,7 +87,7 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 - [x] Require a project name as the first argument; error if missing
 - [x] Create the target directory; error if it already exists
 - [x] Fetch template files from raw GitHub with `curl -fsSL`
-  - `README.md`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research.md`, `.claude/skills/sources.md`, `.claude/skills/index.md`, `.claude/skills/backlinks.md`, `.claude/skills/hierarchy.md`, `.claude/skills/page.md`, `.claude/skills/tags.md`, `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/static/_index.md`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `scripts/server/templates/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
+  - `README.md`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research-topic/SKILL.md`, `.claude/skills/manage-sources/SKILL.md`, `.claude/skills/create-index/SKILL.md`, `.claude/skills/update-backlinks/SKILL.md`, `.claude/skills/choose-page-location/SKILL.md`, `.claude/skills/create-page/SKILL.md`, `.claude/skills/manage-tags/SKILL.md`, `.claude/skills/create-skill/SKILL.md`, `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/static/_index.md`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `scripts/server/templates/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
 - [x] Scaffold stub files: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/bibliography.md`
 - [x] Run `git init` and make an initial commit
 - [x] Print next steps: open in Claude Code and run `python3 scripts/server/main.py`

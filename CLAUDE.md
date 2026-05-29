@@ -30,7 +30,9 @@ wiki/
   pages/             # Research pages, recursively organized with _index.md per folder
   reports/           # Generated reports
 .claude/
-  skills/            # research, sources, index, hierarchy, page, backlinks, tags
+  skills/
+    <skill>/
+      SKILL.md       # research-topic, manage-sources, create-index, choose-page-location, create-page, update-backlinks, manage-tags, create-skill
 scripts/
   init.sh            # Project bootstrap script
   server/            # stdlib Python server, static/, templates/
@@ -49,13 +51,13 @@ On `main` you are **building wiki-ai itself**: the skills, the init script, the 
 Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-design`) is a **full wiki in use**, as if a real user had run the init script and started researching. These branches exist in this repo for development convenience — they let you dog-food the tool — but the AI's role on them is identical to what a real user's AI would do: research, write pages, maintain indexes, and follow all wiki skills.
 
 **On a `wiki_*` branch:**
-- All wiki skills apply in full (`research`, `index`).
+- All wiki skills apply in full (`research-topic`, `create-index`).
 - The wiki content under `wiki/` (`pages`, `reports`, `sources`) is real research, not placeholder scaffolding.
 
 ## Key invariants
 
 - `[[wiki-links]]` connect pages to each other and to `wiki/sources/bibliography.md` entries.
-- `_index.md` files are recursive: every directory in `wiki/` has one to document that folder's structure, maintained by the `index` skill.
+- `_index.md` files are recursive: every directory in `wiki/` has one to document that folder's structure, maintained by the `create-index` skill.
 - `wiki/sources/bibliography.md` is the only place raw URLs live.
 - `scripts/server/main.py` serves `wiki/` as the site root.
 
@@ -63,10 +65,11 @@ Any branch named `wiki_<topic>` (e.g. `wiki_front-end-for-wiki-ai`, `wiki_game-d
 
 | Skill | Purpose |
 |---|---|
-| `research` | Research a topic, save a page, update sources, and refresh the relevant folder indexes |
-| `sources` | Maintain `wiki/sources/bibliography.md` for external URLs and source metadata |
-| `index` | Document a directory's structure in `_index.md` |
-| `hierarchy` | Choose where new pages belong inside `wiki/pages/` |
-| `page` | Create a blank page with the required frontmatter and backlinks stub |
-| `backlinks` | Rebuild the `## Backlinks` section for pages |
-| `tags` | Keep page tags consistent across the wiki |
+| `research-topic` | Research a topic, save a page, update sources, and refresh the relevant folder indexes |
+| `manage-sources` | Maintain `wiki/sources/bibliography.md` for external URLs and source metadata |
+| `create-index` | Document a directory's structure in `_index.md` |
+| `choose-page-location` | Choose where new pages belong inside `wiki/pages/` |
+| `create-page` | Create a blank page with the required frontmatter and backlinks stub |
+| `update-backlinks` | Rebuild the `## Backlinks` section for pages |
+| `manage-tags` | Keep page tags consistent across the wiki |
+| `create-skill` | Create or refine Claude Code skills with clear scope, naming, and discovery guidance |

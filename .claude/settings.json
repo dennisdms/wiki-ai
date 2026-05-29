@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Read(**)",
+      "Write(.claude/skills/**)",
       "Write(wiki/pages/**)",
       "Write(wiki/reports/**)",
       "Write(wiki/sources/bibliography.md)",
