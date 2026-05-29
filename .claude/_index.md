@@ -9,6 +9,6 @@ Claude Code configuration for wiki-ai: skill definitions that drive all AI behav
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
+
 - [[agents/_index]] — Placeholder for future agent definitions.
 - [[skills/_index]] — Skill definitions invoked via `/skill-name` in Claude Code.

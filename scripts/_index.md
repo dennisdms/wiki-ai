@@ -5,10 +5,10 @@ path: scripts/
 
 # Scripts
 
-Python backend for wiki-ai: a FastAPI server that serves the Obsidian-style D3.js graph view, a git sync helper, and the Docker setup. All non-markdown project infrastructure lives here.
+Python backend for wiki-ai: a stdlib `http.server` app, the browser-facing templates, and the static assets used by the graph view.
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
+
 - [[static/_index]] — Static files served by the web UI (JavaScript, CSS).
-- [[templates/_index]] — HTML/Jinja2 templates rendered by the FastAPI server.
+- [[templates/_index]] — HTML templates rendered by the stdlib Python server.

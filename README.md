@@ -6,13 +6,21 @@ An AI-powered research wiki template. One repo = one project. Claude Code does t
 curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init.sh | sh -s -- "my-project"
 ```
 
----
+## Run the server
 
-## Content ownership
+From the repo root:
 
-All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
+```sh
+python3 scripts/main.py
+```
 
-The only exception is `sources/assets/`, which is user-managed.
+Then open `http://localhost:8000` in your browser.
+
+Use a different port if needed:
+
+```sh
+python3 scripts/main.py --port 8080
+```
 
 ---
 
@@ -31,46 +39,46 @@ The only exception is `sources/assets/`, which is user-managed.
 ### 2. Skills (`.claude/skills/`)
 
 #### `research`
-- [ ] Accept a topic as input
-- [ ] Search `notes/` for an existing note before creating a new one
-- [ ] Create, update, or rewrite a note under `notes/` with frontmatter (`title`, `tags`, `created`, `updated`)
-- [ ] Append new external sources to `sources/bibliography.md` (deduplicate by URL)
-- [ ] Update the parent `_index.md` to include the new note
+- [x] Accept a topic as input
+- [x] Search `notes/` for an existing note before creating a new one
+- [x] Create, update, or rewrite a note under `notes/` with frontmatter (`title`, `tags`, `created`, `updated`)
+- [x] Append new external sources to `sources/bibliography.md` (deduplicate by URL)
+- [x] Refresh the parent directory index so it includes the new note
 
 #### `index`
-- [ ] Scan a directory and regenerate its `_index.md`
-- [ ] Regenerate wiki markdown as needed; human edits are not protected state
+- [x] Scan a directory and document its structure in `_index.md`
+- [x] Regenerate wiki markdown as needed
 
 ---
 
 ### 3. Init script (`scripts/init.sh`)
 
-- [ ] Require project name as first argument; error if missing
-- [ ] Create target directory; error if it already exists
-- [ ] Fetch template files from raw GitHub (`curl -fsSL`)
+- [x] Require project name as first argument; error if missing
+- [x] Create target directory; error if it already exists
+- [x] Fetch template files from raw GitHub (`curl -fsSL`)
   - `CLAUDE.md`, `.claude/skills/research`, `.claude/skills/index`, `scripts/main.py`, `scripts/static/style.css`, `scripts/static/graph.js`, `scripts/templates/base.html`, `scripts/templates/note.html`
-- [ ] Scaffold stub files: `_index.md`, `notes/_index.md`, `reports/_index.md`, `sources/bibliography.md`
-- [ ] Run `git init` and make initial commit
-- [ ] Print next steps: open in Claude Code, run `python scripts/main.py`
-- [ ] Works on macOS and Linux — only requires `bash`, `curl`, `git`
+- [x] Scaffold stub files: `_index.md`, `notes/_index.md`, `reports/_index.md`, `sources/bibliography.md`
+- [x] Run `git init` and make initial commit
+- [x] Print next steps: open in Claude Code, run `python scripts/main.py`
+- [x] Works on macOS and Linux — only requires `bash`, `curl`, `git`
 
 ---
 
 ### 4. Web server (`scripts/main.py`)
 
-- [ ] `http.server.BaseHTTPRequestHandler` — stdlib only, no dependencies
-- [ ] `GET /` — render root `_index.md`
-- [ ] `GET /notes/<path>` — render note or `_index.md`; 404 if not found
-- [ ] `GET /graph` — full-page D3 force-directed graph
-- [ ] `GET /api/graph` — JSON `{ nodes, links }` built by scanning `[[links]]` in all `.md` files
-- [ ] `GET /static/<file>` — serve CSS/JS
-- [ ] Markdown rendering: frontmatter, `[[wiki-links]]` → `<a>`, headings, bold, italic, code, lists
-- [ ] Start on port 8000; print `http://localhost:8000`
+- [x] `http.server.BaseHTTPRequestHandler` — stdlib only, no dependencies
+- [x] `GET /` — render root `_index.md`
+- [x] `GET /notes/<path>` — render note or `_index.md`; 404 if not found
+- [x] `GET /graph` — full-page D3 force-directed graph
+- [x] `GET /api/graph` — JSON `{ nodes, links }` built by scanning `[[links]]` in all `.md` files
+- [x] `GET /static/<file>` — serve CSS/JS
+- [x] Markdown rendering: frontmatter, `[[wiki-links]]` → `<a>`, headings, bold, italic, code, lists
+- [x] Start on port 8000; print `http://localhost:8000`
 
 ---
 
 ### 5. Graph view (`scripts/static/graph.js`)
 
-- [ ] Fetch `/api/graph` and render a D3 force-directed graph filling the viewport
-- [ ] Click a node to navigate to it; zoom and pan
-- [ ] Node color by type: notes (blue), indexes (purple), reports (green)
+- [x] Fetch `/api/graph` and render a D3 force-directed graph filling the viewport
+- [x] Click a node to navigate to it; zoom and pan
+- [x] Node color by type: notes (blue), indexes (purple), reports (green)

@@ -8,4 +8,4 @@ Generated research reports. Never hand-edited — regenerate with the `report` s
 
 ## Contents
 
-<!-- Auto-maintained by report skill -->
+

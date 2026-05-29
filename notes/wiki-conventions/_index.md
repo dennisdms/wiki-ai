@@ -9,8 +9,8 @@ How this wiki organizes itself — the rules that keep notes consistent, navigab
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
+
 - [[wiki-conventions/backlinks]] — How the ## Backlinks section works and why it must stay as the final section.
 - [[wiki-conventions/hierarchy]] — Rules for grouping notes into folders and deciding when to create a subdirectory.
-- [[wiki-conventions/index-files]] — How _index.md files are structured and maintained in every directory.
+- [[wiki-conventions/index-files]] — How each directory's structure is documented and maintained in `_index.md`.
 - [[wiki-conventions/tags]] — How to use and maintain the tag taxonomy across content notes.

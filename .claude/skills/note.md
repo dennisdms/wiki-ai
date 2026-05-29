@@ -52,9 +52,9 @@ updated: YYYY-MM-DD
 - Set both `created` and `updated` to today's date.
 - Leave the body empty between the frontmatter and `## Backlinks` — content is added after creation.
 
-### 5. Update the parent index
+### 5. Refresh the parent directory index
 
-- Invoke `index` on the parent directory.
+- Invoke `index` on the parent directory so its documented structure stays current.
 
 ## Rules
 

@@ -25,7 +25,7 @@ The user invokes this skill with a topic to research. They may also provide a so
 
 **If the user provides an asset path:**
 - Confirm the file exists at `sources/assets/<filename>`.
-- If not found, stop and tell the user — never create or move asset files.
+- If not found, stop and tell the user.
 - Use `[[assets/filename]]` to reference it in the note body.
 
 **If neither:**
@@ -68,9 +68,9 @@ Body guidelines:
 - Insert `[[new-note-slug]]` into their body where it is naturally relevant.
 - Update the `updated` date in their frontmatter.
 
-### 6. Update indexes
+### 6. Refresh directory indexes
 
-- Invoke `index` on the note's parent directory.
+- Invoke `index` on the note's parent directory so its documented structure includes the note.
 - If a new directory was created, also invoke `index` on its parent.
 
 ### 7. Update backlinks
@@ -84,10 +84,7 @@ Body guidelines:
 
 ## Rules
 
-- All wiki markdown is AI-maintained end to end; human edits are not protected state and may be overwritten.
 - Notes may be rewritten or structurally reorganized when needed to keep them accurate, coherent, and well-linked.
 - One note per invocation. If the topic is too broad, narrow it or ask the user to split it.
 - Never inline raw URLs in note bodies — always route through `bibliography`.
-- Never create, move, rename, or delete files in `sources/assets/` — that directory is user-managed.
-- The `description` frontmatter field is required — it feeds the `_index.md` entry for this note.
-- Non-`.md` files in the wiki are never touched.
+- The `description` frontmatter field is required — it feeds the directory index entry for this note.

@@ -9,4 +9,4 @@ Claude Code agent definitions for wiki-ai. Reserved for future multi-agent workf
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
+

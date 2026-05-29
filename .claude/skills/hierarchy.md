@@ -24,9 +24,9 @@ Decides where a note belongs in the `notes/` folder hierarchy and, if needed, cr
    - The topic is broad enough to eventually hold 3 or more sibling notes, OR
    - No existing directory is a plausible parent.
    - Name: lowercase kebab-case derived from the topic (e.g. "Game Mechanics" → `game-mechanics/`).
-   - Immediately invoke the `index` skill to create `_index.md` in the new directory.
+   - Immediately invoke the `index` skill so the new directory's structure is documented in `_index.md`.
 4. **Confirm the target path** with the caller before writing any files.
-5. **Update the parent `_index.md`** — invoke the `index` skill on the parent directory after the note is placed.
+5. **Refresh the parent directory index** — invoke the `index` skill on the parent directory after the note is placed so the folder structure stays accurate.
 
 ## Rules
 

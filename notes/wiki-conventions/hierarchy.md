@@ -39,7 +39,7 @@ The `hierarchy` skill automates this decision. The logic is:
 
 1. Is there an existing directory that closely matches the topic? Place the note there.
 2. Is the topic clearly a subtopic of an existing directory? Place it inside that directory.
-3. Neither? Create a new directory, then immediately create its `_index.md` via the `index` skill.
+3. Neither? Create a new directory, then immediately document its structure in `_index.md` via the `index` skill.
 
 ## Smell check
 

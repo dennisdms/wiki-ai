@@ -9,6 +9,6 @@ External source material for the wiki. Raw URLs live exclusively in `bibliograph
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
-- [[assets/_index]] — User-managed raw source files: PDFs, images, and other assets.
+
+- [[assets/_index]] — Raw source files: PDFs, images, and other assets.
 - [[bibliography]] — All external references used in the wiki, linked by slug from notes.

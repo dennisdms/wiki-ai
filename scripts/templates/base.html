@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body class="{{body_class}}">
+    <header class="site-header">
+      <h1><a href="/">wiki-ai</a></h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/notes/">Notes</a>
+        <a href="/reports/">Reports</a>
+        <a href="/graph">Graph</a>
+      </nav>
+    </header>
+    <main class="page-shell">
+      {{content}}
+    </main>
+    {{scripts}}
+  </body>
+</html>

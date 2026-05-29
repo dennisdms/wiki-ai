@@ -1,21 +1,21 @@
 # index
 
-Creates or fully regenerates an `_index.md` file for a given directory.
+Documents a directory's structure and contents by creating or regenerating its `_index.md`.
 
 ## When to invoke
 
 - After creating a new directory (called by `hierarchy`)
 - After adding or removing a note from a directory (called by `research`, `cleanup`)
-- Directly to refresh a stale or missing index
+- Directly to refresh stale or missing directory documentation
 - When any directory is discovered to be missing an `_index.md` — every directory in the wiki must have one
 
 ## Inputs
 
 - Directory path to index (e.g. `notes/game-mechanics/`)
 
-## _index.md template
+## Directory index template
 
-Every `_index.md` must follow this exact structure:
+Every directory index must follow this exact structure:
 
 ```markdown
 ---
@@ -30,7 +30,6 @@ What questions does this cluster address?
 
 ## Contents
 
-<!-- Auto-maintained by index skill -->
 - [[note-slug]] — One sentence describing what this note covers.
 - [[another-note]] — One sentence describing what this note covers.
 - [[subtopic/_index]] — One sentence describing what this subdirectory contains.
@@ -38,6 +37,7 @@ What questions does this cluster address?
 
 Key points:
 - `path:` in frontmatter is the directory path relative to the repo root, trailing slash included.
+- `## Contents` documents the folder's direct children, not the `_index.md` file itself.
 - Every entry in `## Contents` has a description — no bare links, no missing descriptions.
 - Files and directories are mixed in one list, sorted alphabetically by slug.
 
@@ -57,7 +57,7 @@ Key points:
    - For subdirectories: `- [[subdir/_index]] — Description.`
    - Sort alphabetically by slug.
    - Every entry must have a description — if none can be found, write `— (no description yet)` as a placeholder.
-5. **Write the file** following the template above exactly.
+5. **Write the file** so it documents the directory's current structure using the template above.
 
 ## Rules
 
@@ -65,9 +65,9 @@ Key points:
 - This skill may regenerate the whole file whenever needed.
 - **Every directory in the wiki must have an `_index.md`.** This is a hard invariant. If you encounter a directory without one while running this skill, create it before proceeding.
 - The `## Contents` section is fully regenerated on every run.
-- Always include the `<!-- Auto-maintained by index skill -->` comment directly above the list.
+- Do not insert maintenance comments or other hidden markers into `_index.md`; they are implementation artifacts and should not appear in the reader-facing UI.
 - `path:` must reflect the actual directory, with a trailing slash.
-- If the directory is empty, write an empty list with just the comment — do not omit the section.
+- If the directory is empty, write an empty `## Contents` section.
 - `_index.md` files themselves do not appear as entries — use `[[subdir/_index]]` for subdirectories.
 - This skill only writes `.md` files — it never creates, moves, or deletes non-markdown files.
 - After regenerating an index, scan all direct subdirectories and flag any that are missing their own `_index.md`.
