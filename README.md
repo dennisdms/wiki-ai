@@ -77,15 +77,13 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 
 ---
 
-### 4. Git sync script (`scripts/sync.py`)
+### 4. Dependencies (`scripts/requirements.txt`)
 
-- [ ] Parse `--interval <seconds>` (default 900) and `--dry-run` flags
-- [ ] Loop every `--interval` seconds:
-  - Check `git status --porcelain`
-  - If changes: `git add -A` → `git commit -m "auto-sync: <ISO timestamp>"` → `git push --force`
-  - Always after: `git pull --rebase`
-- [ ] Log every action with an ISO timestamp to stdout
-- [ ] Handle errors gracefully (failed push/pull logged, loop continues)
+- [ ] `fastapi`
+- [ ] `uvicorn[standard]`
+- [ ] `jinja2`
+- [ ] `markdown`
+- [ ] `pyyaml`
 
 ---
 
@@ -162,10 +160,12 @@ curl -fsSL https://raw.githubusercontent.com/dennisdms/wiki-ai/main/scripts/init
 
 ---
 
-### 10. requirements.txt
+### 10. Git sync script (`scripts/sync.py`)
 
-- [ ] `fastapi`
-- [ ] `uvicorn[standard]`
-- [ ] `jinja2`
-- [ ] `markdown`
-- [ ] `pyyaml`
+- [ ] Parse `--interval <seconds>` (default 900) and `--dry-run` flags
+- [ ] Loop every `--interval` seconds:
+  - Check `git status --porcelain`
+  - If changes: `git add -A` → `git commit -m "auto-sync: <ISO timestamp>"` → `git push --force`
+  - Always after: `git pull --rebase`
+- [ ] Log every action with an ISO timestamp to stdout
+- [ ] Handle errors gracefully (failed push/pull logged, loop continues)
