@@ -11,15 +11,17 @@ Research a topic, create, update, or rewrite a page, and keep all connected file
 
 Use this skill when the user asks to research a topic for the wiki, expand an existing page, or create a new page from a topic plus optional source material.
 
-The user may also provide a source:
-- A URL → add it to sources first, then reference the slug in the page.
-- An asset path → a file already in `wiki/sources/assets/` to draw from.
+The user may also provide an explicit source:
+- A URL → add it to sources first, then reference the returned source entry in the page.
+- An asset path → a file already in `wiki/assets/` to draw from.
+
+Unless the user provides an explicit source, do web research before writing.
 
 ## Inputs
 
 - Topic or question (required)
 - Optional URL: a source link the user wants stored and cited
-- Optional asset path: a path to a file inside `wiki/sources/assets/`
+- Optional asset path: a path to a file inside `wiki/assets/`
 
 ## Steps
 
@@ -27,71 +29,79 @@ The user may also provide a source:
 
 **If the user provides a URL:**
 - Invoke `manage-sources add <url>` before writing anything.
-- Get back the slug (for example `game-feel`).
-- Use `[[bibliography#game-feel]]` to cite it in the page body.
+- Get back the source reference (for example `sources/gamedeveloper.com#game-feel`).
+- Use `[[sources/gamedeveloper.com#game-feel]]` to cite it in the page body.
 
 **If the user provides an asset path:**
-- Confirm the file exists at `wiki/sources/assets/<filename>`.
+- Confirm the file exists at `wiki/assets/<filename>`.
 - If not found, stop and tell the user.
 - Use `[[assets/filename]]` to reference it in the page body.
 
 **If neither:**
-- Proceed with general knowledge and existing wiki pages as sources.
+- Do web research before writing.
+- Match the breadth of research to the scope of the request:
+  - Simple questions: use 1–3 relevant sources.
+  - Standard research requests: use 5–10 relevant sources.
+  - Deep-dive questions: use 10–15 relevant sources.
+- Add each external URL you rely on through `manage-sources` before citing it in the page.
+- Synthesize the answer from the gathered sources.
+- Do not rely on your own memory, prior knowledge, or model weights as the basis for factual claims.
+- Use existing wiki pages as supporting context, but not as a substitute for web research.
 
 ### 2. Check for an existing page
 
 - Search `wiki/pages/` for `.md` files whose `title` frontmatter or filename closely matches the topic.
 - If a match is found, update or rewrite it rather than creating a new file. Then continue with the write/update flow.
 
-### 3. Determine placement
+### 3. Determine placement for a new page
 
-- Invoke the `choose-page-location` skill with the topic name to get the target directory and filename.
-- Do not write any files until `choose-page-location` confirms the path.
+- If you are creating a new page, invoke `choose-page-location` with the topic name to get the target path.
+- Do not create files or directories until the target path is confirmed.
 
-### 4. Write the page
+### 4. Create the page if needed
 
-Required frontmatter:
+- If a matching page already exists, skip page creation and update that file.
+- If no matching page exists, invoke `create-page` with the resolved title, description, tags, and path.
+- Use `create-page` to create the initial blank page with the required frontmatter.
 
-```yaml
----
-title: Topic Title
-description: One sentence stating what this page is about.
-tags: [tag-one, tag-two]
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
----
-```
+### 5. Write or rewrite the content
+
+- For a newly created page, fill in the blank page created by `create-page`.
+- For an existing page, update or rewrite the content while keeping required metadata valid.
+- Set `updated` to today's date on every page you modify.
 
 Body guidelines:
 - Write factual, dense prose about the topic. Do not meta-comment on the page itself.
+- Synthesize the page's claims from the gathered sources rather than from your own memory or model knowledge.
 - Use `[[other-page-slug]]` to link to related pages in `wiki/pages/`.
-- Cite sources as `[[bibliography#slug]]` and never inline raw URLs.
+- Cite sources as `[[sources/<website>#<slug>]]` and never inline raw URLs.
 - Reference assets as `[[assets/filename]]`.
-- End the file with an empty `## Backlinks` section so the `update-backlinks` skill can populate it.
 
-### 5. Link related pages
+### 6. Link related pages
 
 - Search `wiki/pages/` for pages that should reference the new or updated page but do not yet.
 - Insert `[[new-page-slug]]` where it is naturally relevant.
 - Update the `updated` date in any page you modify.
 
-### 6. Refresh directory indexes
+### 7. Refresh affected indexes
 
-- Invoke `create-index` on the page's parent directory so its documented structure includes the page.
-- If a new directory was created, also invoke `create-index` on its parent.
+- Invoke `create-index` on any directory whose direct contents changed.
+- If you created a new directory, also refresh its parent directory index.
 
-### 7. Update backlinks
+### 8. Update backlinks
 
-- Invoke `update-backlinks update <new-page-path>` to populate its `## Backlinks` section.
+- Invoke `update-backlinks update <page-path>` for the page you created or updated.
 - Invoke `update-backlinks update <path>` for every page modified while adding related links.
 
-### 8. Validate tags
+### 9. Validate tags
 
-- Invoke `manage-tags validate <new-page-path>`.
+- Invoke `manage-tags validate <page-path>` for the page you created or updated.
 
 ## Rules
 
 - One page per invocation. If the topic is too broad, narrow it or ask the user to split it.
 - Reuse and rewrite existing pages when that keeps the wiki cleaner than creating duplicates.
+- Do not rely on your own memory, prior knowledge, or model weights for factual content; synthesize from sources.
 - Never inline raw URLs in page bodies. Always route them through `manage-sources`.
-- The `description` frontmatter field is required because directory indexes depend on it.
+- When creating a new page, use `create-page` rather than duplicating its file template here.
+- Keep page metadata valid so `create-index`, `manage-tags`, and `update-backlinks` can operate correctly.

@@ -14,7 +14,7 @@ ROOT = SERVER_DIR.parent.parent
 WIKI_ROOT = ROOT / "wiki"
 STATIC_DIR = SERVER_DIR / "static"
 TEMPLATES_DIR = SERVER_DIR / "templates"
-ROOT_SEGMENTS = {"pages", "reports", "sources"}
+ROOT_SEGMENTS = {"pages", "reports", "sources", "assets"}
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 WIKILINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
 MARKDOWN_LINK_RE = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
@@ -118,14 +118,14 @@ def parse_wikilink(value: str) -> tuple[str, str | None]:
 def url_label(target: str) -> str:
     base, _, fragment = target.partition("#")
     base = base.rstrip("/")
-    if fragment and (not base or base == "bibliography"):
+    if fragment:
         return fragment
     if not base:
         return target
     final_segment = base.split("/")[-1]
     if final_segment == "_index" and "/" in base:
         final_segment = base.split("/")[-2]
-    return final_segment or fragment or target
+    return final_segment or target
 
 
 def safe_relative(path: Path, base: Path) -> Path | None:
@@ -141,8 +141,8 @@ def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path
     if not link_target:
         return []
 
-    if link_target == "bibliography":
-        return [Path("sources/bibliography.md")]
+    if link_target in {"assets", "assets/_index"}:
+        return [Path("assets/_index.md")]
 
     if link_target.startswith("assets/"):
         return []

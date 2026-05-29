@@ -25,7 +25,8 @@ mkdir -p "$TARGET_DIR/.claude/skills/research-topic" \
   "$TARGET_DIR/.claude/skills/create-skill" \
   "$TARGET_DIR/wiki/pages" \
   "$TARGET_DIR/wiki/reports" \
-  "$TARGET_DIR/wiki/sources/assets" \
+  "$TARGET_DIR/wiki/sources" \
+  "$TARGET_DIR/wiki/assets" \
   "$TARGET_DIR/scripts/server/static" \
   "$TARGET_DIR/scripts/server/templates"
 
@@ -56,7 +57,7 @@ fetch "scripts/server/templates/base.html" "scripts/server/templates/base.html"
 fetch "scripts/server/templates/page.html" "scripts/server/templates/page.html"
 fetch "scripts/server/templates/_index.md" "scripts/server/templates/_index.md"
 fetch "wiki/sources/_index.md" "wiki/sources/_index.md"
-fetch "wiki/sources/assets/_index.md" "wiki/sources/assets/_index.md"
+fetch "wiki/assets/_index.md" "wiki/assets/_index.md"
 
 cat > "$TARGET_DIR/wiki/_index.md" <<EOF
 ---
@@ -71,7 +72,8 @@ Project home for this wiki.
 
 - [[pages/_index]] — Research pages organized by topic.
 - [[reports/_index]] — Generated reports synthesized from research pages.
-- [[sources/_index]] — External sources: bibliography and raw assets.
+- [[sources/_index]] — External website sources, stored as one Markdown file per website.
+- [[assets/_index]] — Raw source files such as PDFs, images, and other attachments.
 EOF
 
 cat > "$TARGET_DIR/wiki/pages/_index.md" <<'EOF'
@@ -100,16 +102,6 @@ Generated reports synthesized from research pages.
 
 ## Contents
 
-EOF
-
-cat > "$TARGET_DIR/wiki/sources/bibliography.md" <<'EOF'
----
-title: Bibliography
----
-
-# Bibliography
-
-All external sources used in this wiki. Pages link here via `[[bibliography#slug]]` — never inline raw URLs in pages.
 EOF
 
 cd "$TARGET_DIR"

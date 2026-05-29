@@ -1,6 +1,6 @@
 ---
 title: Assets
-path: wiki/sources/assets/
+path: wiki/assets/
 ---
 
 # Assets
@@ -8,5 +8,4 @@ path: wiki/sources/assets/
 Raw source material: PDFs, images, and other files used by the wiki.
 
 ## Contents
-
 

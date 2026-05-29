@@ -30,9 +30,9 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 ### 1. Repo scaffold
 
-- [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/assets/`, `.claude/skills/<skill>/SKILL.md`, `scripts/server/static/`, `scripts/server/templates/`
-- [x] Ship wiki entrypoints and recursive indexes: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
-- [x] Provide bibliography storage at `wiki/sources/bibliography.md`
+- [x] Create the core folder structure: `wiki/pages/`, `wiki/reports/`, `wiki/sources/`, `wiki/assets/`, `.claude/skills/<skill>/SKILL.md`, `scripts/server/static/`, `scripts/server/templates/`
+- [x] Ship wiki entrypoints and recursive indexes: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/_index.md`, `wiki/assets/_index.md`
+- [x] Store external website sources as one Markdown file per website under `wiki/sources/`
 - [x] Include template docs/config: `README.md`, `CLAUDE.md`, `.claude/settings.json`
 - [x] Document the script tree with `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/static/_index.md`, `scripts/server/templates/_index.md`
 
@@ -47,9 +47,10 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 - [x] Keep related pages, parent indexes, backlinks, and tags in sync after page updates
 
 #### `manage-sources`
-- [x] Add and deduplicate bibliography entries by URL
-- [x] Support finding, auditing, and removing bibliography entries by slug or URL/title
-- [x] Enforce `wiki/sources/bibliography.md` as the only place raw URLs live
+- [x] Add and deduplicate source entries by URL
+- [x] Group source entries into one file per website under `wiki/sources/`
+- [x] Support finding, auditing, and removing source entries by website, slug, or URL/title
+- [x] Enforce `wiki/sources/*.md` as the only place raw URLs live
 
 #### `create-index`
 - [x] Regenerate any directory `_index.md` from the directory's actual markdown contents
@@ -87,8 +88,8 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 - [x] Require a project name as the first argument; error if missing
 - [x] Create the target directory; error if it already exists
 - [x] Fetch template files from raw GitHub with `curl -fsSL`
-  - `README.md`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research-topic/SKILL.md`, `.claude/skills/manage-sources/SKILL.md`, `.claude/skills/create-index/SKILL.md`, `.claude/skills/update-backlinks/SKILL.md`, `.claude/skills/choose-page-location/SKILL.md`, `.claude/skills/create-page/SKILL.md`, `.claude/skills/manage-tags/SKILL.md`, `.claude/skills/create-skill/SKILL.md`, `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/static/_index.md`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `scripts/server/templates/_index.md`, `wiki/sources/_index.md`, `wiki/sources/assets/_index.md`
-- [x] Scaffold stub files: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`, `wiki/sources/bibliography.md`
+  - `README.md`, `CLAUDE.md`, `.claude/settings.json`, `.claude/skills/research-topic/SKILL.md`, `.claude/skills/manage-sources/SKILL.md`, `.claude/skills/create-index/SKILL.md`, `.claude/skills/update-backlinks/SKILL.md`, `.claude/skills/choose-page-location/SKILL.md`, `.claude/skills/create-page/SKILL.md`, `.claude/skills/manage-tags/SKILL.md`, `.claude/skills/create-skill/SKILL.md`, `scripts/_index.md`, `scripts/server/_index.md`, `scripts/server/main.py`, `scripts/server/static/style.css`, `scripts/server/static/graph.js`, `scripts/server/static/_index.md`, `scripts/server/templates/base.html`, `scripts/server/templates/page.html`, `scripts/server/templates/_index.md`, `wiki/sources/_index.md`, `wiki/assets/_index.md`
+- [x] Scaffold stub files: `wiki/_index.md`, `wiki/pages/_index.md`, `wiki/reports/_index.md`
 - [x] Run `git init` and make an initial commit
 - [x] Print next steps: open in Claude Code and run `python3 scripts/server/main.py`
 - [x] Work on macOS and Linux with only `bash`, `curl`, and `git`
@@ -121,7 +122,7 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 ### 6. Remaining work
 
-- [ ] Serve and render `[[assets/filename]]` links from `wiki/sources/assets/` so asset references used by the skills work in the browser UI
+- [ ] Serve and render `[[assets/filename]]` links from `wiki/assets/` so asset references used by the skills work in the browser UI
 - [ ] Add an automated smoke test for `scripts/init.sh` that scaffolds a fresh project and verifies the expected files are created
 - [ ] Add automated tests for `scripts/server/main.py` covering markdown rendering, wiki-link resolution, and `/api/graph`
 - [ ] Add a simple validation workflow or script to keep the template files and README plan in sync
