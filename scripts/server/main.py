@@ -95,6 +95,8 @@ def normalize_relative(path: Path) -> str:
 
 def path_to_url(relative_path: Path) -> str:
     posix = normalize_relative(relative_path)
+    if relative_path.suffix != ".md":
+        return "/" + posix
     if posix == "_index.md":
         return "/"
     if relative_path.name == "_index.md":
@@ -144,10 +146,10 @@ def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path
     if link_target in {"assets", "assets/_index"}:
         return [Path("assets/_index.md")]
 
-    if link_target.startswith("assets/"):
-        return []
-
     raw = PurePosixPath(link_target)
+    if raw.parts and raw.parts[0] == "assets":
+        return [Path(*raw.parts)]
+
     roots = raw.parts[0:1]
     starts_at_root = bool(roots) and roots[0] in ROOT_SEGMENTS
 
@@ -432,6 +434,28 @@ def resolve_request_to_markdown(request_path: str) -> Path | None:
     return None
 
 
+def resolve_request_to_asset(request_path: str) -> Path | None:
+    raw_path = unquote(urlparse(request_path).path)
+    clean = raw_path.lstrip("/")
+    if not clean:
+        return None
+
+    relative = Path(clean)
+    if not relative.parts or relative.parts[0] != "assets":
+        return None
+
+    absolute = WIKI_ROOT / relative
+    rel = safe_relative(absolute, WIKI_ROOT)
+    if (
+        rel is not None
+        and absolute.exists()
+        and absolute.is_file()
+        and absolute.suffix != ".md"
+    ):
+        return rel
+    return None
+
+
 def detect_node_type(relative_path: Path) -> str:
     if relative_path.name == "_index.md":
         return "index"
@@ -480,6 +504,8 @@ def build_graph() -> dict[str, object]:
             resolved = resolve_link_path(target, relative)
             if resolved is None:
                 continue
+            if resolved.suffix != ".md":
+                continue
             edge = (node_id, resolved.as_posix())
             if edge in seen_edges:
                 continue
@@ -506,6 +532,11 @@ class WikiHandler(BaseHTTPRequestHandler):
 
         if route.startswith("/static/"):
             self.serve_static(route.removeprefix("/static/"))
+            return
+
+        relative_asset = resolve_request_to_asset(route)
+        if relative_asset is not None:
+            self.serve_wiki_file(relative_asset)
             return
 
         relative_markdown = resolve_request_to_markdown(route)
@@ -544,6 +575,21 @@ class WikiHandler(BaseHTTPRequestHandler):
             self.send_error(403, "Forbidden")
             return
 
+        self.serve_file(target)
+
+    def serve_wiki_file(self, relative_path: Path) -> None:
+        target = WIKI_ROOT / relative_path
+        if not target.exists() or not target.is_file():
+            self.send_error(404, "Asset not found")
+            return
+
+        if safe_relative(target, WIKI_ROOT) is None:
+            self.send_error(403, "Forbidden")
+            return
+
+        self.serve_file(target)
+
+    def serve_file(self, target: Path) -> None:
         content = target.read_bytes()
         content_type, _ = mimetypes.guess_type(target.name)
         self.send_response(200)

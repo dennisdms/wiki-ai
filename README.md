@@ -100,6 +100,7 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 - [x] Use the Python standard library only (`http.server`, no framework or install step)
 - [x] Render any markdown page under `wiki/`, including `/`, `/pages/...`, `/reports/...`, and `/sources/...`
+- [x] Serve asset files from `wiki/assets/` so `[[assets/filename]]` links open in the browser UI
 - [x] Serve `/graph` and `/api/graph` for the wiki graph view
 - [x] Serve static assets from `/static/...`
 - [x] Convert frontmatter-aware markdown to HTML with `[[wiki-links]]`, markdown links, headings, emphasis, code, blockquotes, and ordered/unordered lists
@@ -122,7 +123,6 @@ Core template work is in place. The checklist below marks shipped pieces as comp
 
 ### 6. Remaining work
 
-- [ ] Serve and render `[[assets/filename]]` links from `wiki/assets/` so asset references used by the skills work in the browser UI
 - [ ] Add an automated smoke test for `scripts/init.sh` that scaffolds a fresh project and verifies the expected files are created
 - [ ] Add automated tests for `scripts/server/main.py` covering markdown rendering, wiki-link resolution, and `/api/graph`
 - [ ] Add a simple validation workflow or script to keep the template files and README plan in sync
