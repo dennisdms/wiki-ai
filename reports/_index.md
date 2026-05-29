@@ -6,6 +6,6 @@ title: Reports
 
 Generated research reports. Never hand-edited — regenerate with the `report` skill.
 
-## Reports
+## Contents
 
 <!-- Auto-maintained by report skill -->
