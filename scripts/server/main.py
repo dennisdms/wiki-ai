@@ -137,6 +137,20 @@ def safe_relative(path: Path, base: Path) -> Path | None:
         return None
 
 
+def as_markdown_path(base: Path) -> Path:
+    if base.suffix == ".md":
+        return base
+    return Path(f"{base.as_posix()}.md")
+
+
+def markdown_candidates(base: Path) -> list[Path]:
+    markdown_path = as_markdown_path(base)
+    options = [markdown_path, base / "_index.md"]
+    if base.name == "_index":
+        options.insert(0, markdown_path)
+    return options
+
+
 def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path]:
     link_target, _ = parse_wikilink(target)
     link_target = link_target.split("#", 1)[0].strip()
@@ -171,14 +185,7 @@ def repo_candidates_for_target(target: str, current_relative: Path) -> list[Path
     candidates: list[Path] = []
     seen: set[str] = set()
     for base in bases:
-        options = []
-        if base.suffix:
-            options.append(base)
-        else:
-            options.extend([base.with_suffix(".md"), base / "_index.md"])
-            if base.name == "_index":
-                options.insert(0, base.with_suffix(".md"))
-        for option in options:
+        for option in markdown_candidates(base):
             key = normalize_relative(option)
             if key not in seen:
                 seen.add(key)
@@ -413,15 +420,7 @@ def resolve_request_to_markdown(request_path: str) -> Path | None:
         return None
 
     relative = Path(clean)
-    options: list[Path]
-    if relative.suffix:
-        options = [relative]
-    else:
-        options = [relative.with_suffix(".md"), relative / "_index.md"]
-        if relative.name == "_index":
-            options.insert(0, relative.with_suffix(".md"))
-
-    for option in options:
+    for option in markdown_candidates(relative):
         absolute = WIKI_ROOT / option
         rel = safe_relative(absolute, WIKI_ROOT)
         if (
